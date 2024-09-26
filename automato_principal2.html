@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Modern Sidebar</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+
+ 
+    <style>
+
+       body {
+  height: 100vh;
+}
+
+$sidebar-width: 280px;
+$sidebar-bg-color: #292e38;
+
+.wrapper {
+  aside.sidebar {
+    width: $sidebar-width;
+    min-width: $sidebar-width;
+    background: $sidebar-bg-color;
+    overflow-x:hidden;
+    position: relative;
+    &.toggled{
+      width: 0;
+      min-width: 0;
+    }
+    .sidebar-section {
+      padding: 1.2rem 0;
+      border-bottom: 1px solid lighten($sidebar-bg-color, 8%);
+    }
+    .sidebar-profile {
+      .picture-wrapper {
+        width: 60px;
+        height: 60px;
+        overflow: hidden;
+      }
+      .profile-details{
+        .name{
+          color: lighten($sidebar-bg-color, 40%);
+        }
+        .role{
+          color: lighten($sidebar-bg-color, 25%);
+        }
+      }
+    }
+    .sidebar-menu {
+      ul#nav-tab {
+        border-bottom: 1px solid lighten($sidebar-bg-color, 8%);
+        padding-bottom: 1px;
+        li {
+          border-right: 1px solid lighten($sidebar-bg-color, 8%);
+          &:last-child {
+            border-right: none;
+          }
+          a {
+            color: lighten($sidebar-bg-color, 20%);
+            border: none;
+            position: relative;
+            &.active {
+              background: lighten($sidebar-bg-color, 4%);
+              color: lighten($sidebar-bg-color, 40%);
+              .nav-alert{
+                border-color: lighten($sidebar-bg-color, 4%);
+              }
+            }
+            &:hover {
+              color: lighten($sidebar-bg-color, 40%);
+            }
+            .nav-alert {
+              display: inline-block;
+              width: 13px;
+              height: 13px;
+              border-radius: 50%;
+              position: absolute;
+              top: 5px;
+              border: 3px solid $sidebar-bg-color;
+              transform:translateX(2px);
+
+              &.bg-danger {
+                box-shadow: 0px 0px 4px #ff6161;
+              }
+
+              &.bg-success {
+                box-shadow: 0px 0px 4px #61ff66;
+              }
+            }
+          }
+        }
+      }
+
+      .tab-header {
+        color: lighten($sidebar-bg-color, 40%);
+        font-size: 0.9rem;
+        font-weight: bold;
+      }
+      .tab-footer a {
+        color: lighten($sidebar-bg-color, 40%);
+        &:hover {
+          color: lighten($sidebar-bg-color, 50%);
+        }
+      }
+      #menu {
+        ul {
+          list-style-type: none;
+          padding: 0;
+          li a {
+            padding: 0.5rem 0.6rem;
+            text-decoration: none;
+            color: lighten($sidebar-bg-color, 25%);
+            i {
+              width: 35px;
+              height: 35px;
+              text-align: center;
+              line-height: 35px;
+              color: lighten($sidebar-bg-color, 25%);
+              font-size: 0.9rem;
+              border:1px solid lighten($sidebar-bg-color, 8%);
+              margin-right: 0.5rem;
+            }
+            .menu-text {
+              font-size: 0.9rem;
+            }
+            .badge {
+              font-size: 0.6rem;
+            }
+            &:hover {
+              color: lighten($sidebar-bg-color, 30%);
+              background:lighten($sidebar-bg-color, 3%);
+              i {
+                color: lighten($sidebar-bg-color, 40%);
+              }
+            }
+          }
+        }
+      }
+      #messages {
+        ul {
+          list-style-type: none;
+          padding: 0;
+          a {
+            .pic {
+              width: 45px;
+              min-width: 45px;
+              height: 45px;
+              overflow: hidden;
+              margin-right: 1rem;
+              img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center;
+              }
+            }
+            .message-content {
+              text-decoration: none;
+              .message-title {
+                color: lighten($sidebar-bg-color, 50%);
+              }
+              .message-detail {
+                color: lighten($sidebar-bg-color, 20%);
+                font-size: 0.9rem;
+              }
+            }
+            &:hover {
+              background: lighten($sidebar-bg-color, 3%);
+            }
+          }
+        }
+      }
+      #notifications {
+        ul {
+          list-style-type: none;
+          padding: 0;
+          a {
+            .icon i {
+              width: 40px;
+              min-width: 40px;
+              height: 40px;
+              line-height: 40px;
+              overflow: hidden;
+              margin-right: 1rem;
+            }
+            .notification-content {
+              text-decoration: none;
+              .notification-detail {
+                color: lighten($sidebar-bg-color, 40%);
+                font-size: 0.9rem;
+              }
+              .notification-time {
+                color: lighten($sidebar-bg-color, 20%);
+                font-size: 0.7rem;
+              }
+            }
+            &:hover {
+              background: lighten($sidebar-bg-color, 3%);
+            }
+          }
+        }
+      }
+      #settings {
+        ul {
+          list-style-type: none;
+          padding: 0;
+          li a {
+            padding: 0.5rem 0.6rem;
+            text-decoration: none;
+            color: lighten($sidebar-bg-color, 25%);
+            i {
+              color: lighten($sidebar-bg-color, 30%);
+              margin-right: 0.8rem;
+            }
+            &:hover {
+              color: lighten($sidebar-bg-color, 40%);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <aside class="sidebar h-100">
+        <div class="sidebar-section sidebar-header">
+            <div class="sidebar-logo text-center">
+                <a href="#" class="text-light">Modern Sidebar</a>
+            </div>
+        </div>
+        <div class="sidebar-section sidebar-profile pt-4 pb-4">
+            <div class="profile-picture">
+                <div class="picture-wrapper rounded-circle ml-auto mr-auto">
+                    <img src="https://www.magic931.com.au/assets/docs/Jon_Snow.PNG?1543200080" class="img-fluid" alt="">
+                </div>
+                <span class="profile-alert"></span>
+                <div class="profile-details text-center mt-2">
+                    <div class="name">Jhon Snow</div>
+                    <small class="role">King in the north</small>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-section sidebar-menu p-0">
+            <ul class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link rounded-0 active" id="menu-tab" data-toggle="tab" href="#menu" role="tab" aria-controls="menu" aria-selected="true">
+                        <i class="fas fa-bars"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link rounded-0" id="notifications-tab" data-toggle="tab" href="#notifications" role="tab" aria-controls="notifications" aria-selected="false">
+                        <i class="far fa-bell"></i>
+                        <span class="nav-alert bg-danger"></span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link rounded-0" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">
+                        <i class="far fa-comment"></i>
+                        <span class="nav-alert bg-success"></span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link rounded-0" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">
+                        <i class="fas fa-cogs"></i>
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active pt-3 pb-2" id="menu" role="tabpanel" aria-labelledby="menu-tab">
+                    <div class="tab-header text-uppercase p-2">
+                        Menu
+                    </div>
+                    <ul>
+                        <li>
+                            <a href="#" class="d-flex align-items-center">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span class="menu-text flex-fill">Dashboard</span>
+                                <span class="badge badge-pill badge-warning rounded-0">NEW</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="d-flex align-items-center">
+                                <i class="far fa-gem"></i>
+                                <span class="menu-text flex-fill">Components</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="d-flex align-items-center">
+                                <i class="fa fa-chart-line"></i>
+                                <span class="menu-text flex-fill">Charts</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="d-flex align-items-center">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span class="menu-text flex-fill">E-commerce</span>                
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="d-flex align-items-center">
+                                <i class="fa fa-globe"></i>
+                                <span class="menu-text flex-fill">Maps</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="d-flex align-items-center">
+                                <i class="fa fa-calendar"></i>
+                                <span class="menu-text flex-fill">Calendar</span>
+                                <span class="badge badge-pill badge-primary rounded-0">BETA</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="d-flex align-items-center">
+                                <i class="fa fa-book"></i>
+                                <span class="menu-text">Documentation</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Notifications -->
+                <div class="tab-pane fade pt-3 pb-2" id="notifications" role="tabpanel" aria-labelledby="notifications-tab">
+                    <div class="tab-header text-uppercase p-2">
+                        Notifications
+                    </div>
+                    <ul>
+                        <li>
+                            <a class="p-2 d-flex align-items-center text-decoration-none" href="#">
+                                <div class="icon">
+                                    <i class="fas fa-check text-center text-success border border-success"></i>
+                                </div>
+                                <div class="notification-content flex-fill overflow-hidden">
+                                    <div class="notification-detail text-nowrap text-truncate">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
+                                    <div class="notification-time">6 minutes ago</div>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="p-2 d-flex align-items-center text-decoration-none" href="#">
+                                <div class="icon">
+                                    <i class="fas fa-exclamation-triangle text-center text-warning border border-warning"></i>
+                                </div>
+                                <div class="notification-content flex-fill overflow-hidden">
+                                    <div class="notification-detail text-nowrap text-truncate">Lorem ipsum dolor sit amet consectetur adipisicing elit.</div>
+                                    <div class="notification-time">Yesterday</div>
+                                </div>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Messages -->
+                <div class="tab-pane fade pt-3 pb-2" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+                    <div class="tab-header text-uppercase p-2">
+

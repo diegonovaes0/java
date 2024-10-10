@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Navigation Menu</title>
+  <style>
+    /* CSS Variables */
+    :root {
+      --light-gray: #d2d5d9;
+      --gray: #4a4f56;
+      --gray-highlight: #6d7580;
+      --padding: 1em;
+      --radius: 4px;
+      --bubble-color: #4a4f56; /* Default bubble color */
+      --bubble-hover-color: #f44336; /* Bubble color on hover */
+    }
+
+    /* Importing Font Awesome Icons */
+    @import url(http://weloveiconfonts.com/api/?family=fontawesome);
+
+    /* Font Awesome Icons */
+    [class*="fontawesome-"]:before {
+      font-family: 'FontAwesome', sans-serif;
+      font-size: 1.3em;
+      margin-right: 0.8em;
+      color: var(--light-gray);
+    }
+
+    /* General Styles */
+    body {
+      font-family: Arial, sans-serif;
+      font-size: 0.9em;
+      background-color: #f3f4f4;
+      margin: 0; /* Remove margin for full page width */
+    }
+
+    .nav {
+      color: var(--gray-highlight);
+      min-width: 90px;
+      max-width: 250px;
+      background-color: white;
+      border: 1px solid var(--light-gray);
+      border-radius: var(--radius);
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%); /* Center the menu */
+      z-index: 1000; /* Ensure it appears above other elements */
+    }
+
+    .nav > a, .nav > .title {
+      display: block;
+      padding: var(--padding);
+      position: relative;
+      text-decoration: none;
+      color: var(--gray-highlight);
+    }
+
+    .nav > a:hover, .nav > a.active {
+      background-color: var(--gray-highlight);
+      color: white;
+    }
+
+    .nav > a:hover .bubble {
+      color: var(--bubble-hover-color); /* Change bubble color on hover */
+    }
+
+    .nav > a.active::after {
+      content: '';
+      display: block;
+      position: absolute;
+      right: -8px;
+      top: 1.1em;
+      border-top: 8px solid transparent;
+      border-bottom: 8px solid transparent;
+      border-left: 8px solid var(--gray-highlight);
+    }
+
+    .nav > .title {
+      background-color: var(--gray);
+      color: white;
+      font-weight: 500;
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+
+    .bubble {
+      position: absolute;
+      top: 1.3em;
+      right: var(--padding);
+      font-size: 0.8em;
+      color: var(--bubble-color);
+      border: 1px solid var(--bubble-color);
+      border-radius: 10px;
+      padding: 2px 5px;
+      transition: color 0.3s, border-color 0.3s; /* Smooth transition */
+    }
+
+    /* Responsive behavior */
+    @media (max-width: 180px) {
+      .title > span, .nav > a > span {
+        display: none;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="nav">
+    <div class="title">Incoming <span>Messages</span></div>
+
+    <a href="#" class="fontawesome-comment active">
+      <span>New</span> 
+      <div class="bubble">10</div>
+    </a>
+
+    <a href="#" class="fontawesome-flag">
+      <span>Priority</span> 
+      <div class="bubble">8</div>
+    </a>
+
+    <a href="#" class="fontawesome-user">
+      <span>Assigned</span> 
+      <div class="bubble">0/17</div>
+    </a>
+
+    <a href="#" class="fontawesome-folder-close">
+      <span>Archived</span> 
+      <div class="bubble">3</div>
+    </a>
+
+    <a href="#" class="fontawesome-trash">
+      <span>Deleted</span> 
+      <div class="bubble">9</div>
+    </a>
+
+    <a href="#">Show All</a>
+  </div>
+
+</body>
+</html>

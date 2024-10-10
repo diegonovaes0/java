@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Navigation Menu</title>
+    <style>
+        /* CSS Variables */
+        :root {
+            --light-gray: #d2d5d9;
+            --gray: #4a4f56;
+            --gray-highlight: #6d7580;
+            --padding: 1em;
+            --radius: 4px;
+            --bubble-color: #4a4f56; /* Default bubble color */
+            --bubble-hover-color: #f44336; /* Bubble color on hover */
+            --submenu-bg-color: #6d7580; /* Background color of the submenu */
+        }
+
+        /* Importing Font Awesome Icons */
+        @import url(http://weloveiconfonts.com/api/?family=fontawesome);
+
+        /* Font Awesome Icons */
+        [class*="fontawesome-"]:before {
+            font-family: 'FontAwesome', sans-serif;
+            font-size: 1.3em;
+            margin-right: 0.8em;
+            color: var(--light-gray);
+        }
+
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            font-size: 0.9em;
+            background-color: #f3f4f4;
+            margin: 0; /* Remove margin for full page width */
+        }
+
+        .nav {
+            color: var(--gray-highlight);
+            min-width: 90px;
+            max-width: 250px;
+            background-color: white;
+            border: 1px solid var(--light-gray);
+            border-radius: var(--radius);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Center the menu */
+            z-index: 1000; /* Ensure it appears above other elements */
+        }
+
+        .nav > a, .nav > .title {
+            display: block;
+            padding: var(--padding);
+            position: relative;
+            text-decoration: none;
+            color: var(--gray-highlight);
+            transition: background-color 0.3s; /* Smooth transition */
+        }
+
+        .nav > a:hover, .nav > a.active {
+            background-color: var(--gray-highlight);
+            color: white;
+        }
+
+        .bubble {
+            position: absolute;
+            top: 1.3em;
+            right: var(--padding);
+            font-size: 0.8em;
+            color: var(--bubble-color);
+            background-color: white; /* Default background color */
+            border: 1px solid var(--bubble-color);
+            border-radius: 10px;
+            padding: 2px 5px;
+            transition: color 0.3s, border-color 0.3s; /* Smooth transition */
+        }
+
+        .nav > a:hover .bubble {
+            color: white; /* Change bubble color to white on hover */
+            background-color: var(--bubble-hover-color); /* Change bubble background on hover */
+        }
+
+        /* Submenu Styles */
+        .submenu {
+            display: none; /* Hide submenu by default */
+            background-color: var(--submenu-bg-color);
+            padding: 0.5em;
+            border-radius: 0 0 var(--radius) var(--radius);
+            position: absolute; /* Make submenu absolute */
+            left: 0; /* Align submenu with the button */
+            width: 100%; /* Full width of the button */
+            z-index: 999; /* Ensure submenu appears above other elements */
+        }
+
+        /* Show submenu on hover */
+        .nav > a:hover .submenu {
+            display: block; /* Show submenu on hover */
+        }
+
+        /* Responsive behavior */
+        @media (max-width: 180px) {
+            .title > span, .nav > a > span {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="nav">
+    <div class="title">Incoming <span>Messages</span></div>
+
+    <a href="#" class="fontawesome-comment active">
+        <span>New</span>
+        <div class="bubble">10</div>
+        <div class="submenu">Details about new messages</div>
+    </a>
+
+    <a href="#" class="fontawesome-flag">
+        <span>Priority</span>
+        <div class="bubble">8</div>
+        <div class="submenu">Details about priority messages</div>
+    </a>
+
+    <a href="#" class="fontawesome-user">
+        <span>Assigned</span>
+        <div class="bubble">0/17</div>
+        <div class="submenu">Details about assigned messages</div>
+    </a>
+
+    <a href="#" class="fontawesome-folder-close">
+        <span>Archived</span>
+        <div class="bubble">3</div>
+        <div class="submenu">Details about archived messages</div>
+    </a>
+
+    <a href="#" class="fontawesome-trash">
+        <span>Deleted</span>
+        <div class="bubble">9</div>
+        <div class="submenu">Details about deleted messages</div>
+    </a>
+
+    <a href="#">Show All</a>
+</div>
+
+</body>
+</html>

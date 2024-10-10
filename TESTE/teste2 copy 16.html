@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pro Sidebar</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+        }
+        .sidebar {
+            width: 250px;
+            background-color: #2c3e50;
+            color: white;
+            height: 100vh;
+            position: fixed;
+            transition: width 0.3s;
+        }
+        .sidebar h2 {
+            text-align: center;
+            padding: 20px 0;
+        }
+        .sidebar ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        .sidebar ul li {
+            padding: 15px 20px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+        .sidebar ul li:hover {
+            background: #34495e;
+        }
+        .sidebar ul li.active {
+            background: #8e44ad;
+        }
+        .sidebar ul li i {
+            margin-right: 10px;
+        }
+        .content {
+            margin-left: 250px;
+            padding: 20px;
+            flex-grow: 1;
+            background: #ecf0f1;
+        }
+    </style>
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>Pro Sidebar</h2>
+    <ul>
+        <li class="active"><i class="fas fa-home"></i> Dashboard</li>
+        <li><i class="fas fa-chart-line"></i> Charts</li>
+        <li><i class="fas fa-shopping-cart"></i> E-commerce</li>
+        <li><i class="fas fa-map"></i> Maps</li>
+    </ul>
+</div>
+
+<div class="content">
+    <h1>Bem-vindo à Pro Sidebar</h1>
+    <p>Este é um layout de sidebar responsivo que pode ser personalizado de acordo com suas necessidades.</p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Modern Sidebar</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <style>
+        /* Custom Styles */
+        .wrapper {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #343a40;
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-logo {
+            padding: 20px;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .profile-picture {
+            text-align: center;
+        }
+
+        .picture-wrapper img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+
+        .profile-details .name {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .nav-tabs {
+            border-bottom: none;
+        }
+
+        .nav-item .nav-link {
+            color: #ffffff;
+            background-color: #343a40;
+            border: none;
+        }
+
+        .nav-link.active {
+            background-color: #495057;
+        }
+
+        .tab-header {
+            font-size: 16px;
+            font-weight: bold;
+            border-bottom: 1px solid #495057;
+        }
+
+        .tab-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .tab-content ul li a {
+            color: #ffffff;
+            padding: 10px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .tab-content ul li a:hover {
+            background-color: #495057;
+        }
+
+        .tab-content ul li a i {
+            margin-right: 10px;
+        }
+
+        .menu-text {
+            flex-grow: 1;
+        }
+
+        .nav-alert {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 5px;
+        }
+
+        .sidebar-menu .badge {
+            margin-left: auto;
+        }
+
+        .sidebar-profile .profile-alert {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: red;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .tab-footer .btn {
+            background-color: #495057;
+            color: #ffffff;
+        }
+
+        .pic img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        /* New Styles for Additional Menu */
+        .additional-menu {
+            padding: 10px 15px;
+            background-color: #495057;
+            border-bottom: 1px solid #343a40;
+        }
+
+        .additional-menu a {
+            color: #ffffff;
+            text-decoration: none;
+            display: block;
+            padding: 8px 10px;
+        }
+
+        .additional-menu a:hover {
+            background-color: #6c757d;
+        }
+
+        /* Styles for Submenus */
+        .submenu {
+            display: none;
+            padding-left: 20px;
+            background-color: #495057;
+        }
+        
+        .submenu a {
+            padding: 8px 10px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <aside class="sidebar h-100">
+        <div class="sidebar-section sidebar-header">
+            <div class="sidebar-logo text-center">
+                <a href="#" class="text-light">Modern Sidebar</a>
+            </div>
+        </div>
+        <div class="sidebar-section sidebar-profile pt-4 pb-4">
+            <div class="profile-picture">
+                <div class="picture-wrapper rounded-circle ml-auto mr-auto">
+                    <img src="https://www.magic931.com.au/assets/docs/Jon_Snow.PNG?1543200080" class="img-fluid" alt="">
+                </div>
+                <span class="profile-alert"></span>
+                <div class="profile-details text-center mt-2">
+                    <div class="name">Jhon Snow</div>
+                    <small class="role">King in the north</small>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-section sidebar-menu p-0">
+            <ul class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link rounded-0 active" id="menu-tab" data-toggle="tab" href="#menu" role="tab" aria-controls="menu" aria-selected="true">
+                        <i class="fas fa-bars"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link rounded-0" id="notifications-tab" data-toggle="tab" href="#notifications" role="tab" aria-controls="notifications" aria-selected="false">
+                        <i class="far fa-bell"></i>
+                        <span class="nav-alert bg-danger"></span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link rounded-0" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">
+                        <i class="far fa-comment"></i>
+                        <span class="nav-alert bg-success"></span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link rounded-0" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">
+                        <i class="fas fa-cogs"></i>
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active pt-3 pb-2" id="menu" role="tabpanel" aria-labelledby="menu-tab">
+                    <div class="tab-header text-uppercase p-2">
+                        Menu
+                    </div>
+                    <ul>
+                        <li>
+                            <a href="#" class="d-flex align-items-center" onclick="toggleSubmenu('dashboard-submenu')">
+                                <i class="fas fa-tachometer-alt"></i>
+                                <span class="menu-text flex-fill">Dashboard</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <ul class="submenu" id="dashboard-submenu">
+                                <li><a href="#">Submenu Item 1</a></li>
+                                <li><a href="#">Submenu Item 2</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="d-flex align-items-center" onclick="toggleSubmenu('components-submenu')">
+                                <i class="far fa-gem"></i>
+                                <span class="menu-text flex-fill">Components</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <ul class="submenu" id="components-submenu">
+                                <li><a href="#">Submenu Item 1</a></li>
+                                <li><a href="#">Submenu Item 2</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="d-flex align-items-center" onclick="toggleSubmenu('charts-submenu')">
+                                <i class="fa fa-chart-line"></i>
+                                <span class="menu-text flex-fill">Charts</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <ul class="submenu" id="charts-submenu">
+                                <li><a href="#">Submenu Item 1</a></li>
+                                <li><a href="#">Submenu Item 2</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="d-flex align-items-center" onclick="toggleSubmenu('ecommerce-submenu')">
+                                <i class="fa fa-shopping-cart"></i>
+                                <span class="menu-text flex-fill">E-commerce</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <ul class="submenu" id="ecommerce-submenu">
+                                <li><a href="#">Submenu Item 1</a></li>
+                                <li><a href="#">Submenu Item 2</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="d-flex align-items-center" onclick="toggleSubmenu('maps-submenu')">
+                                <i class="fa fa-map"></i>
+                                <span class="menu-text flex-fill">Maps</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <ul class="submenu" id="maps-submenu">
+                                <li><a href="#">Submenu Item 1</a></li>
+                                <li><a href="#">Submenu Item 2</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Notifications -->
+                <div class="tab-pane fade pt-3 pb-2" id="notifications" role="tabpanel" aria-labelledby="notifications-tab">
+                    <div class="tab-header text-uppercase p-2">
+                        Notifications
+                    </div>
+                    <ul>
+                        <li>
+                            <a class="p-2 d-flex align-items-center" href="#">
+                                <div class="pic">
+                                    <img src="https://www.magic931.com.au/assets/docs/Jon_Snow.PNG?1543200080" alt="">
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="font-weight-bold">Jhon Snow</div>
+                                    <small>Updated your profile</small>
+                                </div>
+                                <small class="text-muted">Just now</small>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Messages -->
+                <div class="tab-pane fade pt-3 pb-2" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+                    <div class="tab-header text-uppercase p-2">
+                        Messages
+                    </div>
+                    <ul>
+                        <li>
+                            <a class="p-2 d-flex align-items-center" href="#">
+                                <div class="pic">
+                                    <img src="https://www.magic931.com.au/assets/docs/Jon_Snow.PNG?1543200080" alt="">
+                                </div>
+                                <div class="flex-grow-1">
+                                    <div class="font-weight-bold">Jhon Snow</div>
+                                    <small>Sent you a message</small>
+                                </div>
+                                <small class="text-muted">5 mins ago</small>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Settings -->
+                <div class="tab-pane fade pt-3 pb-2" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                    <div class="tab-header text-uppercase p-2">
+                        Settings
+                    </div>
+                    <ul>
+                        <li>
+                            <a class="p-2 d-flex align-items-center" href="#" onclick="toggleSubmenu('account-settings-submenu')">
+                                <i class="fas fa-user-cog"></i>
+                                <span class="menu-text">Account Settings</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <ul class="submenu" id="account-settings-submenu">
+                                <li><a href="#">Profile</a></li>
+                                <li><a href="#">Security</a></li>
+                                <li><a href="#">Notifications</a></li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a class="p-2 d-flex align-items-center" href="#" onclick="toggleSubmenu('privacy-settings-submenu')">
+                                <i class="fas fa-shield-alt"></i>
+                                <span class="menu-text">Privacy Settings</span>
+                                <i class="fas fa-chevron-down"></i>
+                            </a>
+                            <ul class="submenu" id="privacy-settings-submenu">
+                                <li><a href="#">Data Protection</a></li>
+                                <li><a href="#">Activity Log</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-footer text-center">
+            <button class="btn btn-primary rounded-0">Logout</button>
+        </div>
+    </aside>
+    
+    <main class="flex-grow-1 p-4">
+        <h1>Welcome to the Modern Sidebar</h1>
+        <p>Your main content goes here.</p>
+    </main>
+</div>
+
+<!-- Bootstrap and jQuery JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<!-- Custom JavaScript for Submenus -->
+<script>
+    function toggleSubmenu(submenuId) {
+        const submenu = document.getElementById(submenuId);
+        if (submenu.style.display === "block") {
+            submenu.style.display = "none";
+        } else {
+            submenu.style.display = "block";
+        }
+    }
+</script>
+</body>
+</html>

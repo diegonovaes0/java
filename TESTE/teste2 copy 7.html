@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página com Menu Lateral</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+        }
+        .nav-side-menu {
+            overflow: auto;
+            font-family: 'Verdana', sans-serif;
+            font-size: 12px;
+            font-weight: 200;
+            background-color: #2e353d;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 250px;
+            height: 100%;
+            color: #e1ffff;
+        }
+        .nav-side-menu .brand {
+            background-color: #23282e;
+            line-height: 50px;
+            text-align: center;
+            font-size: 14px;
+        }
+        .nav-side-menu .toggle-btn {
+            display: none;
+        }
+        .nav-side-menu ul,
+        .nav-side-menu li {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            line-height: 35px;
+            cursor: pointer;
+        }
+        .nav-side-menu li a {
+            text-decoration: none;
+            color: #e1ffff;
+            display: block;
+            padding: 10px 15px;
+        }
+        .nav-side-menu li a:hover {
+            background-color: #4f5b69;
+        }
+        .nav-side-menu li:hover {
+            border-left: 3px solid #d19b3d;
+        }
+        .nav-side-menu .sub-menu {
+            display: none; /* Oculta o sub-menu por padrão */
+        }
+        .nav-side-menu .collapse.in {
+            display: block; /* Exibe o sub-menu quando ativo */
+        }
+        .content {
+            margin-left: 250px; /* Espaço para o menu lateral */
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="nav-side-menu">
+        <div class="brand">Brand Logo</div>
+        <div class="menu-list">
+            <ul id="menu-content" class="menu-content">
+                <li>
+                    <a href="#">
+                        <i class="fa fa-dashboard fa-lg"></i> Dashboard
+                    </a>
+                </li>
+                <li data-toggle="collapse" data-target="#ui-elements" class="collapsed">
+                    <a href="#"><i class="fa fa-gift fa-lg"></i> UI Elements <span class="arrow"></span></a>
+                </li>
+                <ul class="sub-menu collapse" id="ui-elements">
+                    <li><a href="#">CSS3 Animation</a></li>
+                    <li><a href="#">General</a></li>
+                    <li><a href="#">Buttons</a></li>
+                    <li><a href="#">Tabs & Accordions</a></li>
+                    <li><a href="#">Typography</a></li>
+                    <li><a href="#">FontAwesome</a></li>
+                    <li><a href="#">Slider</a></li>
+                    <li><a href="#">Panels</a></li>
+                    <li><a href="#">Widgets</a></li>
+                    <li><a href="#">Bootstrap Model</a></li>
+                </ul>
+                <li data-toggle="collapse" data-target="#services" class="collapsed">
+                    <a href="#"><i class="fa fa-globe fa-lg"></i> Services <span class="arrow"></span></a>
+                </li>
+                <ul class="sub-menu collapse" id="services">
+                    <li><a href="#">New Service 1</a></li>
+                    <li><a href="#">New Service 2</a></li>
+                    <li><a href="#">New Service 3</a></li>
+                </ul>
+                <li data-toggle="collapse" data-target="#new" class="collapsed">
+                    <a href="#"><i class="fa fa-car fa-lg"></i> New <span class="arrow"></span></a>
+                </li>
+                <ul class="sub-menu collapse" id="new">
+                    <li><a href="#">New New 1</a></li>
+                    <li><a href="#">New New 2</a></li>
+                    <li><a href="#">New New 3</a></li>
+                </ul>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-user fa-lg"></i> Profile
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <i class="fa fa-users fa-lg"></i> Users
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="content">
+        <h1>Bem-vindo à sua página!</h1>
+        <p>Este é um exemplo de conteúdo ao lado do menu lateral.</p>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+</html>

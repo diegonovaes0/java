@@ -1,0 +1,252 @@
+/* Reseta o padding e a margem de todos os elementos */
+* {
+    padding: 0; /* Remove o preenchimento padrão */
+    margin: 0; /* Remove a margem padrão */
+}
+
+/* Define a cor de fundo da página */
+body {
+    background-color: #212121; /* Cor de fundo escura */
+}
+
+/* Container que centraliza o conteúdo */
+.container {
+    height: 100vh; /* Altura total da viewport */
+    display: flex; /* Utiliza flexbox para layout */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+}
+
+/* Estilo do botão animado */
+.animated-button {
+    position: relative; /* Permite posicionar elementos filhos */
+    display: flex; /* Utiliza flexbox para o botão */
+    align-items: center; /* Centraliza verticalmente os itens dentro do botão */
+    gap: 4px; /* Espaço entre os itens */
+    padding: 16px 36px; /* Preenchimento interno do botão */
+    border: 4px solid; /* Define uma borda de 4px */
+    border-color: transparent; /* Cor da borda (pode ser alterada) */
+    font-size: 16px; /* Tamanho da fonte */
+    background-color: inherit; /* O fundo do botão herda a cor do seu pai */
+    border-radius: 0%; /* Bordas arredondadas (pode ser ajustado) */
+    font-weight: 600; /* Peso da fonte */
+    color: #ffffff; /* Cor do texto (pode ser alterada) */
+    cursor: pointer; /* Muda o cursor para indicar que é clicável */
+    overflow: hidden; /* Esconde o que transborda */
+    box-shadow: 0 0 0 2px #4f5b69; /* Sombra do botão */
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); /* Transições suaves */
+}
+
+/* Reseta o padding e a margem de todos os elementos */
+* {
+    padding: 0; /* Remove o preenchimento padrão */
+    margin: 0; /* Remove a margem padrão */
+}
+
+/* Define a cor de fundo da página */
+body {
+    background-color: #212121; /* Cor de fundo escura */
+}
+
+/* Container que centraliza o conteúdo */
+.container {
+    height: 100vh; /* Altura total da viewport */
+    display: flex; /* Utiliza flexbox para layout */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+}
+
+/* Estilo do botão animado */
+.animated-button {
+    position: relative; /* Permite posicionar elementos filhos */
+    display: flex; /* Utiliza flexbox para o botão */
+    align-items: center; /* Centraliza verticalmente os itens dentro do botão */
+    gap: 4px; /* Espaço entre os itens */
+    padding: 16px 36px; /* Preenchimento interno do botão */
+    border: 4px solid; /* Define uma borda de 4px */
+    border-color: transparent; /* Cor da borda (pode ser alterada) */
+    font-size: 16px; /* Tamanho da fonte */
+    background-color: inherit; /* O fundo do botão herda a cor do seu pai */
+    border-radius: 0%; /* Bordas arredondadas (pode ser ajustado) */
+    font-weight: 600; /* Peso da fonte */
+    color: #ffffff; /* Cor do texto (pode ser alterada) */
+    cursor: pointer; /* Muda o cursor para indicar que é clicável */
+    overflow: hidden; /* Esconde o que transborda */
+    box-shadow: 0 0 0 2px #4f5b69; /* Sombra do botão */
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); /* Transições suaves */
+}
+
+/* Estilo para os SVGs dentro do botão */
+.animated-button svg {
+    position: absolute; /* Posiciona o SVG de forma absoluta */
+    width: 24px; /* Largura do SVG */
+    fill: #ffffff; /* Cor de preenchimento do SVG */
+    z-index: 9; /* Para garantir que o SVG fique acima de outros elementos */
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1); /* Transição suave */
+}
+
+/* Posições dos elementos de seta no botão */
+.animated-button .arr-1 {
+    right: 16px; /* Alinha a seta à direita */
+}
+
+.animated-button .arr-2 {
+    left: -25%; /* Alinha a segunda seta à esquerda */
+}
+
+/* Reseta o padding e a margem de todos os elementos */
+* {
+    padding: 0; /* Remove o preenchimento padrão */
+    margin: 0; /* Remove a margem padrão */
+}
+
+/* Define a cor de fundo da página */
+body {
+    background-color: #212121; /* Cor de fundo escura */
+}
+
+/* Container que centraliza o conteúdo */
+.container {
+    height: 100vh; /* Altura total da viewport */
+    display: flex; /* Utiliza flexbox para layout */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+}
+
+/* Estilo do botão animado */
+.animated-button {
+    position: relative; /* Permite posicionar elementos filhos */
+    display: flex; /* Utiliza flexbox para o botão */
+    align-items: center; /* Centraliza verticalmente os itens dentro do botão */
+    gap: 4px; /* Espaço entre os itens */
+    padding: 16px 36px; /* Preenchimento interno do botão */
+    border: 4px solid; /* Define uma borda de 4px */
+    border-color: transparent; /* Cor da borda (pode ser alterada) */
+    font-size: 16px; /* Tamanho da fonte */
+    background-color: inherit; /* O fundo do botão herda a cor do seu pai */
+    border-radius: 0%; /* Bordas arredondadas (pode ser ajustado) */
+    font-weight: 600; /* Peso da fonte */
+    color: #ffffff; /* Cor do texto (pode ser alterada) */
+    cursor: pointer; /* Muda o cursor para indicar que é clicável */
+    overflow: hidden; /* Esconde o que transborda */
+    box-shadow: 0 0 0 2px #4f5b69; /* Sombra do botão */
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); /* Transições suaves */
+}
+
+/* Reseta o padding e a margem de todos os elementos */
+* {
+    padding: 0; /* Remove o preenchimento padrão */
+    margin: 0; /* Remove a margem padrão */
+}
+
+/* Define a cor de fundo da página */
+body {
+    background-color: #212121; /* Cor de fundo escura */
+}
+
+/* Container que centraliza o conteúdo */
+.container {
+    height: 100vh; /* Altura total da viewport */
+    display: flex; /* Utiliza flexbox para layout */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+}
+
+/* Estilo do botão animado */
+.animated-button {
+    position: relative; /* Permite posicionar elementos filhos */
+    display: flex; /* Utiliza flexbox para o botão */
+    align-items: center; /* Centraliza verticalmente os itens dentro do botão */
+    gap: 4px; /* Espaço entre os itens */
+    padding: 16px 36px; /* Preenchimento interno do botão */
+    border: 4px solid; /* Define uma borda de 4px */
+    border-color: transparent; /* Cor da borda (pode ser alterada) */
+    font-size: 16px; /* Tamanho da fonte */
+    background-color: inherit; /* O fundo do botão herda a cor do seu pai */
+    border-radius: 0%; /* Bordas arredondadas (pode ser ajustado) */
+    font-weight: 600; /* Peso da fonte */
+    color: #ffffff; /* Cor do texto (pode ser alterada) */
+    cursor: pointer; /* Muda o cursor para indicar que é clicável */
+    overflow: hidden; /* Esconde o que transborda */
+    box-shadow: 0 0 0 2px #4f5b69; /* Sombra do botão */
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); /* Transições suaves */
+}
+
+/* Estilo para os SVGs dentro do botão */
+.animated-button svg {
+    position: absolute; /* Posiciona o SVG de forma absoluta */
+    width: 24px; /* Largura do SVG */
+    fill: #ffffff; /* Cor de preenchimento do SVG */
+    z-index: 9; /* Para garantir que o SVG fique acima de outros elementos */
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1); /* Transição suave */
+}
+
+/* Posições dos elementos de seta no botão */
+.animated-button .arr-1 {
+    right: 16px; /* Alinha a seta à direita */
+}
+
+.animated-button .arr-2 {
+    left: -25%; /* Alinha a segunda seta à esquerda */
+}
+
+/* Estilo para o círculo animado */
+.animated-button .circle {
+    position: absolute; /* Posiciona o círculo de forma absoluta */
+    top: 50%; /* Alinha verticalmente ao centro */
+    left: 50%; /* Alinha horizontalmente ao centro */
+    transform: translate(-50%, -50%); /* Centraliza o círculo */
+    width: 20px; /* Largura inicial do círculo */
+    height: 20px; /* Altura inicial do círculo */
+    border-radius: 10%; /* Torna o círculo redondo */
+    opacity: 0; /* Inicialmente invisível */
+    background-color: #b8b6b4; /* Cor de fundo do círculo */
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1); /* Transição suave */
+}
+
+/* Estilo para o texto do botão */
+.animated-button .text {
+    position: relative; /* Posiciona o texto de forma relativa */
+    z-index: 1; /* Coloca o texto acima do círculo */
+    transform: translateX(-12px); /* Move o texto levemente para a esquerda */
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1); /* Transição suave */
+}
+
+/* Efeito ao passar o mouse sobre o botão */
+.animated-button:hover {
+    color: #000000; /* Muda a cor do texto ao passar o mouse */
+    border-radius: 12px; /* Altera a borda para arredondada ao passar o mouse */
+    box-shadow: 0 0 0 12px transparent; /* Efeito de sombra ao passar o mouse */
+}
+
+/* Efeitos das setas ao passar o mouse */
+.animated-button:hover .arr-1 {
+    right: -25%; /* Move a seta para fora ao passar o mouse */
+}
+
+.animated-button:hover .arr-2 {
+    left: 16px; /* Move a segunda seta para a direita ao passar o mouse */
+}
+
+/* Animação do texto ao passar o mouse */
+.animated-button:hover .text {
+    transform: translateX(12px); /* Move o texto para a direita */
+}
+
+/* Muda a cor do SVG ao passar o mouse */
+.animated-button:hover svg {
+    fill: #000000; /* Cor do SVG muda ao passar o mouse */
+}
+
+/* Efeito ao clicar no botão */
+.animated-button:active {
+    scale: 0.95; /* Diminui o tamanho ao clicar */
+    box-shadow: 0 0 0 4px #000000; /* Sombra ao clicar */
+}
+
+/* Animação do círculo ao passar o mouse */
+.animated-button:hover .circle {
+    width: 220px; /* Expande o círculo ao passar o mouse */
+    height: 220px; /* Expande o círculo ao passar o mouse */
+    opacity: 1; /* Torna o círculo visível ao passar o mouse */
+}

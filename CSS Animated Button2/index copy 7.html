@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Modern Sidebar</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <style>
+        /* Custom Styles */
+        body {
+            margin: 0;
+            padding: 0;
+        }
+
+        .wrapper {
+            display: flex;
+            height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #343a40;
+            color: white;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-logo {
+            padding: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        .profile-picture {
+            text-align: center;
+        }
+
+        .picture-wrapper img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+        }
+
+        .profile-details .name {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .nav-tabs {
+            border-bottom: none;
+        }
+
+        .nav-item .nav-link {
+            color: #ffffff;
+            background-color: #343a40;
+            border: none;
+        }
+
+        .nav-link.active {
+            background-color: #495057;
+        }
+
+        .tab-header {
+            font-size: 16px;
+            font-weight: bold;
+            border-bottom: 1px solid #495057;
+        }
+
+        .tab-content ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .tab-content ul li {
+            position: relative;
+        }
+
+        .tab-content ul li a {
+            color: #ffffff;
+            padding: 10px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .tab-content ul li a:hover {
+            background-color: #495057;
+        }
+
+        .tab-content ul li a i {
+            margin-right: 10px;
+        }
+
+        .menu-text {
+            flex-grow: 1;
+        }
+
+        .nav-alert {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-left: 5px;
+        }
+
+        .sidebar-profile .profile-alert {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: red;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .tab-footer .btn {
+            background-color: #495057;
+            color: #ffffff;
+        }
+
+        .nav-side-menu {
+            overflow: auto;
+            font-family: verdana;
+            font-size: 12px;
+            font-weight: 200;
+            background-color: #2e353d;
+            position: fixed;
+            top: 0px;
+            width: 300px;
+            height: 100%;
+            color: #e1ffff;
+        }
+
+        .nav-side-menu .brand {
+            background-color: #23282e;
+            line-height: 50px;
+            display: block;
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .nav-side-menu ul,
+        .nav-side-menu li {
+            list-style: none;
+            padding: 0px;
+            margin: 0px;
+            line-height: 35px;
+            cursor: pointer;
+        }
+
+        .nav-side-menu ul .active,
+        .nav-side-menu li .active {
+            border-left: 3px solid #d19b3d;
+            background-color: #4f5b69;
+        }
+
+        .nav-side-menu li {
+            padding-left: 0px;
+            border-left: 3px solid #2e353d;
+            border-bottom: 1px solid #23282e;
+        }
+
+        .nav-side-menu li a {
+            text-decoration: none;
+            color: #e1ffff;
+        }
+
+        .nav-side-menu li:hover {
+            border-left: 3px solid #d19b3d;
+            background-color: #4f5b69;
+            transition: all 1s ease;
+        }
+
+        /* Estilos dos botões */
+        /* Reseta o padding e a margem de todos os elementos */
+* {
+    padding: 0; /* Remove o preenchimento padrão */
+    margin: 0; /* Remove a margem padrão */
+}
+
+/* Define a cor de fundo da página */
+body {
+    background-color: #212121; /* Cor de fundo escura */
+}
+
+/* Container que centraliza o conteúdo */
+.container {
+    height: 100vh; /* Altura total da viewport */
+    display: flex; /* Utiliza flexbox para layout */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+}
+
+/* Estilo do botão animado */
+.animated-button {
+    position: relative; /* Permite posicionar elementos filhos */
+    display: flex; /* Utiliza flexbox para o botão */
+    align-items: center; /* Centraliza verticalmente os itens dentro do botão */
+    gap: 4px; /* Espaço entre os itens */
+    padding: 16px 36px; /* Preenchimento interno do botão */
+    border: 4px solid; /* Define uma borda de 4px */
+    border-color: transparent; /* Cor da borda (pode ser alterada) */
+    font-size: 16px; /* Tamanho da fonte */
+    background-color: inherit; /* O fundo do botão herda a cor do seu pai */
+    border-radius: 0%; /* Bordas arredondadas (pode ser ajustado) */
+    font-weight: 600; /* Peso da fonte */
+    color: #ffffff; /* Cor do texto (pode ser alterada) */
+    cursor: pointer; /* Muda o cursor para indicar que é clicável */
+    overflow: hidden; /* Esconde o que transborda */
+    box-shadow: 0 0 0 2px #4f5b69; /* Sombra do botão */
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); /* Transições suaves */
+}
+
+/* Reseta o padding e a margem de todos os elementos */
+* {
+    padding: 0; /* Remove o preenchimento padrão */
+    margin: 0; /* Remove a margem padrão */
+}
+
+/* Define a cor de fundo da página */
+body {
+    background-color: #212121; /* Cor de fundo escura */
+}
+
+/* Container que centraliza o conteúdo */
+.container {
+    height: 100vh; /* Altura total da viewport */
+    display: flex; /* Utiliza flexbox para layout */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+}
+
+/* Estilo do botão animado */
+.animated-button {
+    position: relative; /* Permite posicionar elementos filhos */
+    display: flex; /* Utiliza flexbox para o botão */
+    align-items: center; /* Centraliza verticalmente os itens dentro do botão */
+    gap: 4px; /* Espaço entre os itens */
+    padding: 16px 36px; /* Preenchimento interno do botão */
+    border: 4px solid; /* Define uma borda de 4px */
+    border-color: transparent; /* Cor da borda (pode ser alterada) */
+    font-size: 16px; /* Tamanho da fonte */
+    background-color: inherit; /* O fundo do botão herda a cor do seu pai */
+    border-radius: 0%; /* Bordas arredondadas (pode ser ajustado) */
+    font-weight: 600; /* Peso da fonte */
+    color: #ffffff; /* Cor do texto (pode ser alterada) */
+    cursor: pointer; /* Muda o cursor para indicar que é clicável */
+    overflow: hidden; /* Esconde o que transborda */
+    box-shadow: 0 0 0 2px #4f5b69; /* Sombra do botão */
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); /* Transições suaves */
+}
+
+/* Estilo para os SVGs dentro do botão */
+.animated-button svg {
+    position: absolute; /* Posiciona o SVG de forma absoluta */
+    width: 24px; /* Largura do SVG */
+    fill: #ffffff; /* Cor de preenchimento do SVG */
+    z-index: 9; /* Para garantir que o SVG fique acima de outros elementos */
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1); /* Transição suave */
+}
+
+/* Posições dos elementos de seta no botão */
+.animated-button .arr-1 {
+    right: 16px; /* Alinha a seta à direita */
+}
+
+.animated-button .arr-2 {
+    left: -25%; /* Alinha a segunda seta à esquerda */
+}
+
+/* Reseta o padding e a margem de todos os elementos */
+* {
+    padding: 0; /* Remove o preenchimento padrão */
+    margin: 0; /* Remove a margem padrão */
+}
+
+/* Define a cor de fundo da página */
+body {
+    background-color: #212121; /* Cor de fundo escura */
+}
+
+/* Container que centraliza o conteúdo */
+.container {
+    height: 100vh; /* Altura total da viewport */
+    display: flex; /* Utiliza flexbox para layout */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+}
+
+/* Estilo do botão animado */
+.animated-button {
+    position: relative; /* Permite posicionar elementos filhos */
+    display: flex; /* Utiliza flexbox para o botão */
+    align-items: center; /* Centraliza verticalmente os itens dentro do botão */
+    gap: 4px; /* Espaço entre os itens */
+    padding: 16px 36px; /* Preenchimento interno do botão */
+    border: 4px solid; /* Define uma borda de 4px */
+    border-color: transparent; /* Cor da borda (pode ser alterada) */
+    font-size: 16px; /* Tamanho da fonte */
+    background-color: inherit; /* O fundo do botão herda a cor do seu pai */
+    border-radius: 0%; /* Bordas arredondadas (pode ser ajustado) */
+    font-weight: 600; /* Peso da fonte */
+    color: #ffffff; /* Cor do texto (pode ser alterada) */
+    cursor: pointer; /* Muda o cursor para indicar que é clicável */
+    overflow: hidden; /* Esconde o que transborda */
+    box-shadow: 0 0 0 2px #4f5b69; /* Sombra do botão */
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); /* Transições suaves */
+}
+
+/* Reseta o padding e a margem de todos os elementos */
+* {
+    padding: 0; /* Remove o preenchimento padrão */
+    margin: 0; /* Remove a margem padrão */
+}
+
+/* Define a cor de fundo da página */
+body {
+    background-color: #212121; /* Cor de fundo escura */
+}
+
+/* Container que centraliza o conteúdo */
+.container {
+    height: 100vh; /* Altura total da viewport */
+    display: flex; /* Utiliza flexbox para layout */
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente */
+}
+
+/* Estilo do botão animado */
+.animated-button {
+    position: relative; /* Permite posicionar elementos filhos */
+    display: flex; /* Utiliza flexbox para o botão */
+    align-items: center; /* Centraliza verticalmente os itens dentro do botão */
+    gap: 4px; /* Espaço entre os itens */
+    padding: 16px 36px; /* Preenchimento interno do botão */
+    border: 4px solid; /* Define uma borda de 4px */
+    border-color: transparent; /* Cor da borda (pode ser alterada) */
+    font-size: 16px; /* Tamanho da fonte */
+    background-color: inherit; /* O fundo do botão herda a cor do seu pai */
+    border-radius: 0%; /* Bordas arredondadas (pode ser ajustado) */
+    font-weight: 600; /* Peso da fonte */
+    color: #ffffff; /* Cor do texto (pode ser alterada) */
+    cursor: pointer; /* Muda o cursor para indicar que é clicável */
+    overflow: hidden; /* Esconde o que transborda */
+    box-shadow: 0 0 0 2px #4f5b69; /* Sombra do botão */
+    transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1); /* Transições suaves */
+}
+
+/* Estilo para os SVGs dentro do botão */
+.animated-button svg {
+    position: absolute; /* Posiciona o SVG de forma absoluta */
+    width: 24px; /* Largura do SVG */
+    fill: #ffffff; /* Cor de preenchimento do SVG */
+    z-index: 9; /* Para garantir que o SVG fique acima de outros elementos */
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1); /* Transição suave */
+}
+
+/* Posições dos elementos de seta no botão */
+.animated-button .arr-1 {
+    right: 16px; /* Alinha a seta à direita */
+}
+
+.animated-button .arr-2 {
+    left: -25%; /* Alinha a segunda seta à esquerda */
+}
+
+/* Estilo para o círculo animado */
+.animated-button .circle {
+    position: absolute; /* Posiciona o círculo de forma absoluta */
+    top: 50%; /* Alinha verticalmente ao centro */
+    left: 50%; /* Alinha horizontalmente ao centro */
+    transform: translate(-50%, -50%); /* Centraliza o círculo */
+    width: 20px; /* Largura inicial do círculo */
+    height: 20px; /* Altura inicial do círculo */
+    border-radius: 10%; /* Torna o círculo redondo */
+    opacity: 0; /* Inicialmente invisível */
+    background-color: #b8b6b4; /* Cor de fundo do círculo */
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1); /* Transição suave */
+}
+
+/* Estilo para o texto do botão */
+.animated-button .text {
+    position: relative; /* Posiciona o texto de forma relativa */
+    z-index: 1; /* Coloca o texto acima do círculo */
+    transform: translateX(-12px); /* Move o texto levemente para a esquerda */
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1); /* Transição suave */
+}
+
+/* Efeito ao passar o mouse sobre o botão */
+.animated-button:hover {
+    color: #000000; /* Muda a cor do texto ao passar o mouse */
+    border-radius: 12px; /* Altera a borda para arredondada ao passar o mouse */
+    box-shadow: 0 0 0 12px transparent; /* Efeito de sombra ao passar o mouse */
+}
+
+/* Efeitos das setas ao passar o mouse */
+.animated-button:hover .arr-1 {
+    right: -25%; /* Move a seta para fora ao passar o mouse */
+}
+
+.animated-button:hover .arr-2 {
+    left: 16px; /* Move a segunda seta para a direita ao passar o mouse */
+}
+
+/* Animação do texto ao passar o mouse */
+.animated-button:hover .text {
+    transform: translateX(12px); /* Move o texto para a direita */
+}
+
+/* Muda a cor do SVG ao passar o mouse */
+.animated-button:hover svg {
+    fill: #000000; /* Cor do SVG muda ao passar o mouse */
+}
+
+/* Efeito ao clicar no botão */
+.animated-button:active {
+    scale: 0.95; /* Diminui o tamanho ao clicar */
+    box-shadow: 0 0 0 4px #000000; /* Sombra ao clicar */
+}
+
+/* Animação do círculo ao passar o mouse */
+.animated-button:hover .circle {
+    width: 220px; /* Expande o círculo ao passar o mouse */
+    height: 220px; /* Expande o círculo ao passar o mouse */
+    opacity: 1; /* Torna o círculo visível ao passar o mouse */
+}
+
+
+    </style>
+</head>
+<body>
+
+<div class="wrapper">
+    <aside class="sidebar h-100 nav-side-menu">
+        <div class="sidebar-section sidebar-header">
+            <div class="sidebar-logo">
+                <a href="#" class="text-light">Modern Sidebar</a>
+            </div>
+        </div>
+        <div class="sidebar-section sidebar-profile pt-4 pb-4">
+            <div class="profile-picture">
+                <div class="picture-wrapper rounded-circle ml-auto mr-auto">
+                    <img src="https://www.magic931.com.au/assets/docs/Jon_Snow.PNG?1543200080" class="img-fluid" alt="">
+                </div>
+                <span class="profile-alert"></span>
+                <div class="profile-details text-center mt-2">
+                    <div class="name">Jhon Snow</div>
+                    <small class="role">King in the north</small>
+                </div>
+            </div>
+        </div>
+        <div class="sidebar-section sidebar-menu p-0">
+            <ul class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link rounded-0 active" id="menu-tab" data-toggle="tab" href="#menu" role="tab" aria-controls="menu" aria-selected="true">
+                        <i class="fas fa-bars"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link rounded-0" id="notifications-tab" data-toggle="tab" href="#notifications" role="tab" aria-controls="notifications" aria-selected="false">
+                        <i class="far fa-bell"></i>
+                        <span class="nav-alert bg-danger"></span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link rounded-0" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">
+                        <i class="far fa-comment"></i>
+                        <span class="nav-alert bg-success"></span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link rounded-0" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">
+                        <i class="fas fa-cogs"></i>
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade show active pt-3 pb-2" id="menu" role="tabpanel" aria-labelledby="menu-tab">
+                    <div class="tab-header text-uppercase p-2">Menu</div>
+                    <ul>
+                        <li>
+                            <a href="#" class="animated-button d-flex align-items-center" onclick="toggleSubMenu('ansibleSubMenu')">
+                                <span class="menu-text">Ansible</span>
+                                <div class="triangle" id="ansibleTriangle"></div>
+                            </a>
+                            <ul class="submenu" id="ansibleSubMenu">
+                                <li>
+                                    <a href="#" class="animated-button">
+                                        <span class="menu-text">Submenu Item 1</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="animated-button">
+                                        <span class="menu-text">Submenu Item 2</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="#" class="animated-button d-flex align-items-center" onclick="toggleSubMenu('terraformSubMenu')">
+                                <span class="menu-text">Terraform</span>
+                                <div class="triangle" id="terraformTriangle"></div>
+                            </a>
+                            <ul class="submenu" id="terraformSubMenu">
+                                <li>
+                                    <a href="#" class="animated-button">
+                                        <span class="menu-text">Submenu Item 1</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="animated-button">
+                                        <span class="menu-text">Submenu Item 2</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="tab-pane fade pt-3 pb-2" id="notifications" role="tabpanel" aria-labelledby="notifications-tab">Content for Notifications</div>
+                <div class="tab-pane fade pt-3 pb-2" id="messages" role="tabpanel" aria-labelledby="messages-tab">Content for Messages</div>
+                <div class="tab-pane fade pt-3 pb-2" id="settings" role="tabpanel" aria-labelledby="settings-tab">Content for Settings</div>
+            </div>
+        </div>
+        <div class="sidebar-section tab-footer text-center mt-auto">
+            <button class="btn btn-primary btn-block" type="button">Log Out</button>
+        </div>
+    </aside>
+
+    <div class="main-content">
+        <!-- Main content goes here -->
+    </div>
+</div>
+
+<script>
+    function toggleSubMenu(subMenuId) {
+        // Toggle the submenu
+        const subMenu = document.getElementById(subMenuId);
+        const triangle = document.getElementById(subMenuId === 'ansibleSubMenu' ? 'ansibleTriangle' : 'terraformTriangle');
+
+        if (subMenu.classList.contains('active')) {
+            subMenu.classList.remove('active');
+            triangle.style.display = 'none'; // Esconde o triângulo
+        } else {
+            subMenu.classList.add('active');
+            triangle.style.display = 'block'; // Mostra o triângulo
+        }
+    }
+</script>
+
+<!-- jQuery and Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

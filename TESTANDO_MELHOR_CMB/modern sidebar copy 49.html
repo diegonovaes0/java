@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar com Submenus</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/modern sidebar_styles5.css">
+    <style>
+       /* Reset básico */
+* {
+    margin: 0; /* Remove a margem padrão de todos os elementos */
+    padding: 0; /* Remove o preenchimento padrão de todos os elementos */
+    box-sizing: border-box; /* Inclui padding e border no cálculo da largura e altura de elementos */
+}
+
+body {
+    background-color: #0d0d0d; /* Define a cor de fundo do corpo da página */
+    font-family: Arial, sans-serif; /* Define a fonte padrão da página */
+}
+
+/* Estilos para os links da barra de navegação */
+.nav-link {
+    background-color: transparent; /* Torna o fundo transparente */
+    color: #ffffff; /* Define a cor do texto como branco */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave para mudanças de cor */
+    padding: 15px; /* Adiciona espaço interno */
+}
+
+/* Estilos específicos para os botões Ansible e Terraform */
+.ansible, .terraform {
+    background-color: #004080; /* Define a cor de fundo padrão */
+    padding: 8px; /* Adiciona espaço interno */
+    border: 2px solid #899cb7; /* Define a borda do botão */
+    transition: all 0.3s ease; /* Transição suave para todas as propriedades */
+    margin-bottom: 8px; /* Adiciona espaço abaixo dos botões */
+    font-size: 0.9rem; /* Define o tamanho da fonte */
+    border-radius: 4px; /* Arredonda os cantos */
+}
+
+.ansible {
+    border-color: #00FF00; /* Define a cor da borda para o botão Ansible */
+}
+
+/* Estilos para submenus */
+.submenu {
+    max-height: 0; /* Inicia com altura máxima 0 para ocultar o submenu */
+    overflow: hidden; /* Oculta o conteúdo que excede a altura do submenu */
+    transition: max-height 0.5s ease, padding 0.2s ease; /* Transição suave para altura e preenchimento */
+    list-style: none; /* Remove os marcadores da lista */
+    padding-left: 15px; /* Adiciona espaço à esquerda */
+    background-color: #333333; /* Define a cor de fundo do submenu */
+    font-size: 0.85rem; /* Define o tamanho da fonte para o submenu */
+}
+
+.submenu.show {
+    max-height: 500px; /* Define a altura máxima ao exibir o submenu */
+    padding: 8px 0; /* Adiciona espaço interno */
+}
+
+.submenu li {
+    width: 100%; /* Faz os itens do submenu ocuparem 100% da largura */
+}
+
+/* Estilos para links e botões dentro do submenu */
+.submenu li a,
+.submenu li button {
+    display: block; /* Faz os elementos se comportarem como blocos */
+    width: 100%; /* Faz os links ocuparem toda a largura */
+    padding: 10px 15px; /* Adiciona espaço interno */
+    background-color: #0d0d0d; /* Define a cor de fundo dos links */
+    color: #ffffff; /* Define a cor do texto como branco */
+    text-decoration: none; /* Remove o sublinhado */
+    transition: background-color 0.3s ease; /* Transição suave para mudanças de cor de fundo */
+    border: none; /* Remove a borda padrão */
+    text-align: left; /* Alinha o texto à esquerda */
+}
+
+.submenu li a:hover,
+.submenu li button:hover {
+    background-color: #0c0c0c; /* Altera a cor de fundo ao passar o mouse */
+    color: #ffffff; /* Mantém a cor do texto como branca */
+}
+
+/* Estilos para os ícones de Chevron */
+.chevron {
+    margin-left: auto; /* Alinha o ícone à direita */
+    margin-right: 10px; /* Adiciona espaço à direita */
+    transition: transform 0.3s ease; /* Transição suave para a transformação */
+}
+
+.chevron.rotate {
+    transform: rotate(90deg); /* Rotaciona o ícone quando ativo */
+}
+
+/* Estilo para o botão ativo */
+.active-button {
+    background-color: #006de9; /* Cor de fundo para o botão ativo */
+    border: 2px solid #ffffff; /* Borda branca para o botão ativo */
+    border-radius: 4px; /* Arredonda os cantos do botão ativo */
+}
+
+/* Estilo do conteúdo principal */
+.content {
+    margin-left: 250px; /* Cria espaço para a sidebar */
+    transition: margin-left 0.3s ease; /* Transição suave ao ajustar a margem */
+    background-color: #282c34; /* Define a cor de fundo do conteúdo */
+    color: #ffffff; /* Define a cor do texto como branca */
+    padding: 20px; /* Adiciona espaço interno ao conteúdo */
+    min-height: 100vh; /* Define a altura mínima como 100% da altura da janela */
+}
+
+/* Efeito neon para submenu do Ansible */
+.submenu-ansible li a {
+    position: relative; /* Permite posicionar elementos filhos */
+    overflow: hidden; /* Oculta conteúdo excedente */
+    background-color: #262626; /* Cor de fundo do link do submenu */
+    color: #00FF00; /* Cor do texto como verde */
+    border: 1px solid #00FF00; /* Borda verde */
+    transition: all 0.3s ease; /* Transição suave para todas as propriedades */
+}
+
+.submenu-ansible li a::before {
+    content: ''; /* Cria um elemento vazio antes do link */
+    position: absolute; /* Posiciona o elemento de forma absoluta */
+    top: 0; /* Alinha ao topo */
+    left: -100%; /* Inicia fora da tela à esquerda */
+    width: 100%; /* Define a largura */
+    height: 100%; /* Define a altura */
+    background: linear-gradient(120deg, rgba(0,255,0,0.3), rgba(0,255,0,0.7), rgba(0,255,0,0.3)); /* Efeito de gradiente */
+    transition: all 0.5s ease; /* Transição suave para todos os parâmetros */
+    transform: skewX(-45deg); /* Inclina o gradiente */
+}
+
+.submenu-ansible li a:hover::before,
+.submenu-ansible li a.active::before {
+    left: 100%; /* Move o gradiente para a direita ao passar o mouse ou se ativo */
+}
+
+.submenu-ansible li a:hover,
+.submenu-ansible li a.active {
+    color: #ffffff; /* Cor do texto como branco ao passar o mouse */
+    background-color: #1a1a1a; /* Cor de fundo ao passar o mouse ou se ativo */
+    box-shadow: 0 0 10px #00FF00, 0 0 20px #00FF00, 0 0 30px #00FF00; /* Efeito de sombra neon verde */
+    border-color: #00FF00; /* Borda verde ao passar o mouse */
+}
+
+/* Estilos para os submenus do Terraform */
+/* Pode adicionar estilos específicos para os submenus do Terraform aqui */
+
+/* Estilo do botão animado "Clique Aqui" */
+.animated-button {
+    position: relative; /* Permite o posicionamento absoluto de elementos filhos */
+    display: inline-block; /* Faz o botão se comportar como bloco inline */
+    padding: 12px 24px; /* Espaço interno do botão */
+    color: #e0e0e0; /* Cor do texto */
+    text-transform: uppercase; /* Transforma texto em letras maiúsculas */
+    letter-spacing: 2px; /* Espaçamento entre letras */
+    font-size: 16px; /* Tamanho da fonte */
+    font-weight: bold; /* Define o peso da fonte como negrito */
+    text-decoration: none; /* Remove o sublinhado do texto */
+    overflow: hidden; /* Oculta qualquer conteúdo que exceda o botão */
+    transition: 0.5s; /* Transição suave para todas as propriedades */
+    border-radius: 40px; /* Arredonda os cantos do botão */
+    background: #4c4c4c; /* Cor de fundo do botão */
+    border: 2px solid #8c8c8c; /* Borda cinza mais clara */
+    cursor: pointer; /* Cursor de ponteiro ao passar o mouse */
+    width: 100%; /* Ocupa toda a largura disponível */
+    box-shadow: none; /* Remove sombra inicial */
+}
+
+/* Mantém os estilos de hover e active */
+.animated-button:hover {
+    background: #5a5a5a;
+    color: #f5f5f5;
+    border-color: #bfbfbf;
+    box-shadow: 0 0 10px #e0e0e0, 0 0 15px #a0a0a0, 0 0 25px #bfbfbf;
+}
+
+.animated-button:active {
+    background: #3a3a3a;
+    border-color: #bfbfbf;
+    box-shadow: 0 0 10px #6c6c6c, 0 0 15px #7f7f7f, 0 0 25px #a0a0a0;
+    color: #fff;
+}
+.animated-button span.border-top,
+.animated-button span.border-right,
+.animated-button span.border-bottom,
+.animated-button span.border-left {
+    position: absolute;
+    background: linear-gradient(90deg, transparent, #bfbfbf);
+    transition: all 0.5s;
+}
+
+.animated-button span.border-top {
+    top: 0; /* Posiciona a borda superior */
+    left: -100%; /* Inicia fora da tela à esquerda */
+    width: 100%; /* Largura total */
+    height: 2px; /* Altura da borda */
+    animation: animate1 1s linear; /* Animação */
+}
+
+@keyframes animate1 {
+    0% {
+        left: -100%; /* Começa fora da tela */
+    }
+    100% {
+        left: 100%; /* Move para a direita */
+    }
+}
+
+.animated-button span.border-right {
+    top: -100%; /* Inicia fora da tela acima */
+    right: 0; /* Alinha à direita */
+    width: 2px; /* Largura da borda */
+    height: 100%; /* Altura total */
+    background: linear-gradient(180deg, transparent, #bfbfbf); /* Cor cinza clara */
+    animation: animate2 1s linear; /* Animação */
+    animation-delay: 0.25s; /* Atraso na animação */
+}
+
+@keyframes animate2 {
+    0% {
+        top: -100%; /* Começa fora da tela acima */
+    }
+    100% {
+        top: 100%; /* Move para baixo */
+    }
+}
+
+.animated-button span.border-bottom {
+    bottom: 0; /* Alinha ao fundo */
+    right: -100%; /* Inicia fora da tela à direita */
+    width: 100%; /* Largura total */
+    height: 2px; /* Altura da borda */
+    background: linear-gradient(270deg, transparent, #bfbfbf); /* Cor cinza clara */
+    animation: animate3 1s linear; /* Animação */
+    animation-delay: 0.5s; /* Atraso na animação */
+}
+
+@keyframes animate3 {
+    0% {
+        right: -100%; /* Começa fora da tela */
+    }
+    100% {
+        right: 100%; /* Move para a direita */
+    }
+}
+
+.animated-button span.border-left {
+    bottom: -100%; /* Inicia fora da tela abaixo */
+    left: 0; /* Alinha à esquerda */
+    width: 2px; /* Largura da borda */
+    height: 100%; /* Altura total */
+    background: linear-gradient(360deg, transparent, #bfbfbf); /* Cor cinza clara */
+    animation: animate4 1s linear; /* Animação */
+    animation-delay: 0.75s; /* Atraso na animação */
+}
+
+@keyframes animate4 {
+    0% {
+        bottom: -100%; /* Começa fora da tela */
+    }
+    100% {
+        bottom: 100%; /* Move para cima */
+    }
+}
+
+/* Círculo animado */
+.animated-button .circle {
+    position: absolute; /* Permite o posicionamento absoluto */
+    top: 50%; /* Alinha ao centro verticalmente */
+    left: 50%; /* Alinha ao centro horizontalmente */
+    transform: translate(-50%, -50%); /* Centraliza o círculo */
+    width: 0; /* Inicia com largura 0 */
+    height: 0; /* Inicia com altura 0 */
+    border-radius: 50%; /* Círculo perfeito */
+    background-color:#353e47; /* Cor de fundo do círculo */
+    transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1); /* Transição suave */
+    opacity: 0; /* Começa invisível */
+}
+
+.animated-button:hover .circle {
+    width: 220px; /* Expande o círculo ao passar o mouse */
+    height: 220px; /* Expande a altura ao passar o mouse */
+    opacity: 1; /* Torna o círculo visível */
+}
+
+/* Texto animado dentro do botão */
+.animated-button .text {
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease;
+    display: inline-block; /* Mantém o texto no centro */
+}
+
+.animated-button:hover .text {
+    transform: translateX(10px); /* Move o texto ao passar o mouse */
+}
+
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <aside class="sidebar h-100 nav-side-menu">
+            <div class="sidebar-section sidebar-header">
+                <div class="sidebar-logo">
+                    <a href="#" class="text-light">Modern Sidebar</a>
+                </div>
+            </div>
+            <div class="sidebar-section sidebar-profile pt-4 pb-4">
+                <div class="profile-picture">
+                    <div class="picture-wrapper rounded-circle ml-auto mr-auto">
+                        <img src="https://www.magic931.com.au/assets/docs/Jon_Snow.PNG?1543200080" class="img-fluid" alt="Foto de Perfil">
+                    </div>
+                    <span class="profile-alert"></span>
+                    <div class="profile-details text-center mt-2">
+                        <div class="name">Jhon Snow</div>
+                        <small class="role">King in the north</small>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-section sidebar-menu p-0">
+                <ul class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                    <!-- Menu 1 -->
+                    <li class="nav-item">
+                        <span class="nav-alert bg-danger"></span>
+                        <a class="nav-link rounded-0" id="menu1-tab" data-toggle="tab" href="#menu1" role="tab" aria-controls="menu1" aria-selected="false">
+                            <i class="fas fa-home"></i>
+                        </a>
+                    </li>
+                    <!-- Menu 2 -->
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0" id="menu2-tab" data-toggle="tab" href="#menu2" role="tab" aria-controls="menu2" aria-selected="false">
+                            <img src="images/ansible-logo.png" alt="Ansible Icon" class="icon-logo">
+                            <span class="nav-alert bg-danger"></span>
+                        </a>
+                    </li>
+                    <!-- Menu 3 -->
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0" id="menu3-tab" data-toggle="tab" href="#menu3" role="tab" aria-controls="menu3" aria-selected="false">
+                            <img src="images/terraform-logo.png" alt="Terraform Icon" class="icon-logo">
+                            <span class="nav-alert bg-success"></span>
+                        </a>
+                    </li>
+                    <!-- Menu 4 -->
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0" id="menu4-tab" data-toggle="tab" href="#menu4" role="tab" aria-controls="menu4" aria-selected="false">
+                            <i class="far fa-comment"></i>
+                            <span class="nav-alert bg-success"></span>
+                        </a>
+                    </li>
+                    <!-- Menu 5 -->
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0" id="menu5-tab" data-toggle="tab" href="#menu5" role="tab" aria-controls="menu5" aria-selected="false">
+                            <i class="fas fa-cogs"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <!-- Conteúdo do Menu 1 -->
+                    <div class="tab-pane fade" id="menu1" role="tabpanel" aria-labelledby="menu1-tab">
+                        <div class="tab-header text-uppercase p-2">Home</div>
+                        <p>Conteúdo do Menu Home.</p>
+                    </div>
+                    <!-- Conteúdo do Menu 2 (Ansible) -->
+                    <div class="tab-pane fade" id="menu2" role="tabpanel" aria-labelledby="menu2-tab">
+                        <div class="tab-header text-uppercase p-2">Ansible</div>
+                        <ul>
+                            <!-- Botões Ansible com submenus -->
+                            <li>
+                                <a href="#" class="d-flex align-items-center toggle-submenu ansible">
+                                    <img src="images/ansible-logo.png" alt="Ansible Logo" class="icon-logo">
+                                    <span class="menu-text flex-fill">Playbook</span>
+                                    <i class="fas fa-chevron-right chevron"></i>
+                                </a>
+                                <ul class="submenu submenu-ansible">
+                                    <li><a href="#">Submenu Ansible 1</a></li>
+                                    <li><a href="#">Submenu Ansible 2</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Conteúdo do Menu 3 (Terraform) -->
+                    <div class="tab-pane fade" id="menu3" role="tabpanel" aria-labelledby="menu3-tab">
+                        <div class="tab-header text-uppercase p-2">Terraform</div>
+                        <ul>
+                            <li>
+                                <a href="#" class="d-flex align-items-center toggle-submenu terraform">
+                                    <img src="images/terraform-logo.png" alt="Terraform Logo" class="icon-logo">
+                                    <span class="menu-text flex-fill">Terraform</span>
+                                    <i class="fas fa-chevron-right chevron"></i>
+                                </a>
+                                <ul class="submenu submenu-terraform">
+                                    <li>
+                                        <button class="animated-button">
+                                            <span class="border-top"></span>
+                                            <span class="border-right"></span>
+                                            <span class="border-bottom"></span>
+                                            <span class="border-left"></span>
+                                            <span class="text">Clique Aqui</span>
+                                            <!-- Removido SVG das setas -->
+                                            <div class="circle"></div>
+                                        </button>
+                                        <button class="animated-button">
+                                            <span class="border-top"></span>
+                                            <span class="border-right"></span>
+                                            <span class="border-bottom"></span>
+                                            <span class="border-left"></span>
+                                            <span class="text">Clique Aqui</span>
+                                            <!-- Removido SVG das setas -->
+                                            <div class="circle"></div>
+                                        </button>
+                                         <button class="animated-button">
+                                            <span class="border-top"></span>
+                                            <span class="border-right"></span>
+                                            <span class="border-bottom"></span>
+                                            <span class="border-left"></span>
+                                            <span class="text">Clique Aqui</span>
+                                            <!-- Removido SVG das setas -->
+                                            <div class="circle"></div>
+                                        </button>
+                                    </li>
+                                    <li><a href="#">Submenu Terraform 1</a></li>
+                                    <li><a href="#">Submenu Terraform 2</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Conteúdo do Menu 4 -->
+                    <div class="tab-pane fade" id="menu4" role="tabpanel" aria-labelledby="menu4-tab">
+                        <div class="tab-header text-uppercase p-2">Comentários</div>
+                        <p>Conteúdo do Menu de Comentários.</p>
+                    </div>
+                    <!-- Conteúdo do Menu 5 -->
+                    <div class="tab-pane fade" id="menu5" role="tabpanel" aria-labelledby="menu5-tab">
+                        <div class="tab-header text-uppercase p-2">Configurações</div>
+                        <p>Conteúdo do Menu de Configurações.</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <div class="content">
+            <h1>Conteúdo Principal</h1>
+            <p>Bem-vindo ao seu painel de controle.</p>
+        </div>
+    </div>
+
+    <!-- jQuery e Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- JS para o submenu -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Adiciona evento de clique para os itens do menu colapsáveis
+            document.querySelectorAll('.toggle-submenu').forEach(function (item) {
+                item.addEventListener('click', function (e) {
+                    e.preventDefault(); // Evita o comportamento padrão do link
+                    // Toggle para expandir ou colapsar o submenu
+                    const submenu = item.nextElementSibling;
+                    const chevron = item.querySelector('.chevron');
+
+                    submenu.classList.toggle('show');  // Exibe ou oculta o submenu
+                    chevron.classList.toggle('rotate');  // Rotaciona o ícone
+
+                    // Alterna a classe active-button para o botão ativo
+                    item.classList.toggle('active-button');
+
+                    // Adiciona ou remove a classe 'active' nos links do submenu para aplicar estilos ativos
+                    submenu.querySelectorAll('a').forEach(function(subItem) {
+                        subItem.classList.toggle('active');
+                    });
+
+                    // Fecha outros submenus abertos ao abrir um novo
+                    document.querySelectorAll('.toggle-submenu').forEach(function (otherItem) {
+                        if (otherItem !== item) {
+                            const otherSubmenu = otherItem.nextElementSibling;
+                            const otherChevron = otherItem.querySelector('.chevron');
+                            otherSubmenu.classList.remove('show');
+                            otherChevron.classList.remove('rotate');
+                            otherItem.classList.remove('active-button');
+                            // Remove a classe 'active' dos links do submenu fechado
+                            otherSubmenu.querySelectorAll('a').forEach(function(subItem) {
+                                subItem.classList.remove('active');
+                            });
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar com Submenus</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <style>
+        /* Estilo Geral */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #2e353d; /* Cor de fundo */
+            font-family: Verdana, sans-serif; /* Fonte utilizada no menu */
+        }
+
+        /* Estilos da Sidebar */
+        .nav-side-menu {
+            overflow: auto; /* Permite que o conteúdo transborde */
+            font-size: 14px; /* Tamanho da fonte */
+            font-weight: 200; /* Peso da fonte */
+            background: linear-gradient(180deg, #2c2f33, #181c20, #23282e); /* Gradiente de cinza escuro, preto e cinza */
+            position: fixed; /* Fixa a barra lateral */
+            top: 0;
+            left: 0;
+            width: 300px; /* Largura da barra lateral */
+            height: 100%; /* Altura total */
+            color: #e1ffff; /* Cor do texto na barra lateral */
+        }
+
+        .nav-side-menu .brand {
+            background-color: #23282e; /* Cor de fundo da seção de marca */
+            line-height: 50px; /* Altura da linha */
+            display: block; /* Exibe como bloco */
+            text-align: center; /* Centraliza o texto */
+            font-size: 18px; /* Tamanho da fonte */
+            font-weight: bold; /* Peso da fonte */
+            color: #ffffff; /* Cor do texto */
+        }
+
+        /* Estilos para os itens do menu */
+        .nav-side-menu ul, .nav-side-menu li {
+            list-style: none; /* Remove o estilo da lista */
+            padding: 0;
+            margin: 0;
+            line-height: 35px; /* Altura da linha dos itens */
+            cursor: pointer; /* Muda o cursor ao passar o mouse */
+        }
+
+        .nav-side-menu li {
+            background-color: #181c20; /* Fundo dos itens do menu */
+            border: none; /* Remove a borda padrão */
+            border-bottom: 1px solid #23282e; /* Borda do item do menu */
+            transition: background-color 0.3s ease; /* Transição suave para a cor de fundo */
+        }
+
+        /* Estilos para os links do menu */
+        .nav-side-menu li a {
+            display: flex; /* Usa flexbox para alinhamento */
+            align-items: center; /* Alinha verticalmente */
+            padding: 10px 15px; /* Espaçamento */
+            text-decoration: none; /* Remove sublinhado */
+            color: #e1ffff; /* Cor do texto padrão */
+            background-color: transparent; /* Fundo transparente */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave */
+            width: 100%; /* Ocupa toda a largura */
+        }
+
+        /* Hover para os links do menu */
+        .nav-side-menu li a:hover {
+            background-color: #2e353d; /* Fundo ao passar o mouse */
+            color: #ffffff; /* Cor do texto ao passar o mouse */
+        }
+
+        /* Classe para botões ativos */
+        .nav-side-menu li a.active {
+            background-color: #2e353d; /* Cor forte para o botão ativo */
+            color: #ffffff; /* Cor do texto */
+            border-left: 4px solid #181c20; /* Destaque com borda */
+            border-bottom: 1px solid #181c20;
+
+        }
+
+        /* Estilos para os submenus */
+        .submenu {
+            max-height: 0; /* Inicia fechado */
+            overflow: hidden; /* Esconde o conteúdo quando max-height é 0 */
+            transition: max-height 0.3s ease; /* Transição suave para a altura */
+            list-style: none; /* Remove estilo de lista */
+            padding-left: 20px; /* Espaçamento à esquerda */
+            background-color: #444444; /* Cor de fundo mais suave para submenus */
+            background-color: #181c20;
+            border: none;
+            line-height: 28px;
+            border-bottom: 1px solid #23282e;
+            margin-left: 0px;
+        }
+
+        .submenu.show {
+            max-height: 500px; /* Ajuste conforme necessário */
+        }
+
+        /* Estilos para os links dentro do submenu */
+        .submenu li a {
+            display: block; /* Faz com que o link ocupe toda a área do item */
+            padding: 10px; /* Adiciona espaçamento ao redor do texto */
+            background-color: #23282e; /* Cor de fundo preto para os submenus */
+            color: #ffffff; /* Cor do texto branco para contraste */
+            text-decoration: none; /* Remove sublinhado */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Suave transição */
+            list-style: none;
+            padding: 0px;
+            margin: 0px;
+            line-height: 35px;
+            cursor: pointer;
+        }
+
+        /* Efeito de hover para os itens do submenu */
+        .submenu li a:hover {
+            background-color: #181c20; /* Cor do fundo ao passar o mouse */
+            color: #ffffff; /* Cor do texto ao passar o mouse */
+        }
+
+        /* Estilos para os ícones de logo */
+        .icon-logo {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        /* Estilos para a seta (chevron) que indica submenus */
+        .chevron {
+            margin-left: auto;
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .chevron.rotate {
+            transform: rotate(90deg); /* Rotação ao expandir */
+        }
+
+        /* Estilo para as setas dos submenus */
+        .submenu-arrow {
+            margin-left: 10px;
+            font-size: 10px;
+            transition: transform 0.3s;
+            color: #ff0000;
+        }
+
+        /* Notificações */
+        .notification {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: transparent;
+            color: white;
+            text-align: center;
+            line-height: 18px;
+            margin-left: 5px;
+            transition: background-color 0.3s;
+            font-size: 12px;
+            border: 1px solid #e1ffff;
+        }
+
+        .notification:hover {
+            background-color: #d19b3d;
+            border-color: #d19b3d;
+        }
+
+        /* Barra de alerta */
+        .nav-alert {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        /* Cor da sidebar */
+        .sidebar {
+            background-color: #343a40; /* Cor de fundo da sidebar */
+            transition: all 0.3s ease; /* Transição suave */
+        }
+
+        /* Estilos para as abas */
+        .tab-pane {
+            transition: opacity 0.3s ease, visibility 0.3s ease; /* Transições suaves */
+        }
+
+        .tab-pane.fade.show {
+            opacity: 1; /* Opacidade total quando ativo */
+            visibility: visible; /* Visibilidade total */
+        }
+
+        .tab-pane.fade {
+            opacity: 0; /* Opacidade zero quando não ativo */
+            visibility: hidden; /* Invisível */
+        }
+
+        /* Estilo opcional para o conteúdo principal */
+        .content {
+            margin-left: 300px; /* Espaço para a sidebar */
+            padding: 20px;
+            transition: margin-left 0.3s ease; /* Transição suave */
+            background-color: #282c34; /* Cor de fundo mais escura */
+            color: #ffffff; /* Cor do texto */
+            min-height: 100vh; /* Altura mínima */
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .nav-side-menu {
+                width: 100%; /* Largura total em telas menores */
+                height: auto;
+                position: relative;
+            }
+
+            .content {
+                margin-left: 0; /* Remove a margem esquerda do conteúdo */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <aside class="sidebar h-100 nav-side-menu">
+            <div class="sidebar-section sidebar-header">
+                <div class="sidebar-logo">
+                    <a href="#" class="text-light brand">Modern Sidebar</a>
+                </div>
+            </div>
+            <div class="sidebar-section sidebar-profile pt-4 pb-4">
+                <div class="profile-picture">
+                    <div class="picture-wrapper rounded-circle ml-auto mr-auto">
+                        <img src="https://www.magic931.com.au/assets/docs/Jon_Snow.PNG?1543200080" class="img-fluid" alt="Foto de Perfil">
+                    </div>
+                    <span class="profile-alert"></span>
+                    <div class="profile-details text-center mt-2">
+                        <div class="name">Jhon Snow</div>
+                        <small class="role">King in the north</small>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-section sidebar-menu p-0">
+                <ul class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                    <li class="nav-item">
+                        <span class="nav-alert bg-danger"></span>
+                        <a class="nav-link rounded-0 active" id="menu-tab" data-toggle="tab" href="#menu" role="tab" aria-controls="menu" aria-selected="true">
+                            <i class="fas fa-bars"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0" id="notifications-tab" data-toggle="tab" href="#notifications" role="tab" aria-controls="notifications" aria-selected="false">
+                            <img src="images/ansible-logo.png" alt="Ansible Icon" class="icon-logo">
+                            <span class="nav-alert bg-danger"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">
+                            <img src="images/terraform-logo.png" alt="Terraform Icon" class="icon-logo">
+                            <span class="nav-alert bg-success"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0" id="comments-tab" data-toggle="tab" href="#comments" role="tab" aria-controls="comments" aria-selected="false">
+                            <i class="far fa-comment"></i>
+                            <span class="nav-alert bg-success"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">
+                            <i class="fas fa-cogs"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <!-- Menu Baseline -->
+                    <div class="tab-pane fade show active pt-3 pb-2" id="menu" role="tabpanel" aria-labelledby="menu-tab">
+                        <div class="tab-header text-uppercase p-2">Baseline</div>
+                        <ul>
+                            <!-- Botões Playbook e Terraform com submenus -->
+                            <li>
+                                <a href="#" class="d-flex align-items-center toggle-submenu playbook">
+                                    <img src="images/ansible-logo.png" alt="Ansible Logo" class="icon-logo">
+                                    <span class="menu-text flex-fill">Playbook</span>
+                                    <i class="fas fa-chevron-right chevron"></i>
+                                </a>
+                                <ul class="submenu submenu-playbook">
+                                    <li><a href="#">Submenu Playbook 1</a></li>
+                                    <li><a href="#">Submenu Playbook 2</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="d-flex align-items-center toggle-submenu terraform">
+                                    <img src="images/terraform-logo.png" alt="Terraform Logo" class="icon-logo">
+                                    <span class="menu-text flex-fill">Terraform</span>
+                                    <i class="fas fa-chevron-right chevron"></i>
+                                </a>
+                                <ul class="submenu submenu-terraform">
+                                    <li><a href="#">Submenu Terraform 1</a></li>
+                                    <li><a href="#">Submenu Terraform 2</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Notificações -->
+                    <div class="tab-pane fade pt-3 pb-2" id="notifications" role="tabpanel" aria-labelledby="notifications-tab">
+                        <div class="tab-header text-uppercase p-2">Notificações</div>
+                        <ul>
+                            <li>
+                                <a href="#" class="p-2 d-flex align-items-center text-decoration-none">
+                                    <div class="icon">
+                                        <i class="fas fa-check text-center text-success"></i>
+                                    </div>
+                                    <span class="notification-text flex-fill">Notificação 1</span>
+                                    <span class="notification-date">2 minutos atrás</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="p-2 d-flex align-items-center text-decoration-none">
+                                    <div class="icon">
+                                        <i class="fas fa-times text-center text-danger"></i>
+                                    </div>
+                                    <span class="notification-text flex-fill">Notificação 2</span>
+                                    <span class="notification-date">5 minutos atrás</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Mensagens -->
+                    <div class="tab-pane fade pt-3 pb-2" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+                        <div class="tab-header text-uppercase p-2">Mensagens</div>
+                        <ul>
+                            <li>
+                                <a href="#" class="p-2 d-flex align-items-center text-decoration-none">
+                                    <div class="icon">
+                                        <i class="fas fa-user text-center text-primary"></i>
+                                    </div>
+                                    <span class="message-text flex-fill">Mensagem 1</span>
+                                    <span class="message-date">10 minutos atrás</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="p-2 d-flex align-items-center text-decoration-none">
+                                    <div class="icon">
+                                        <i class="fas fa-user text-center text-primary"></i>
+                                    </div>
+                                    <span class="message-text flex-fill">Mensagem 2</span>
+                                    <span class="message-date">15 minutos atrás</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Configurações -->
+                    <div class="tab-pane fade pt-3 pb-2" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                        <div class="tab-header text-uppercase p-2">Configurações</div>
+                        <ul>
+                            <li><a href="#" class="notification">Configuração 1</a></li>
+                            <li><a href="#" class="notification">Configuração 2</a></li>
+                            <li><a href="#" class="notification">Configuração 3</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <div class="content">
+            <h1>Conteúdo Principal</h1>
+            <p>Bem-vindo ao seu painel de controle.</p>
+        </div>
+    </div>
+
+    <!-- jQuery e Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        document.querySelectorAll('.toggle-submenu').forEach(item => {
+            item.addEventListener('click', event => {
+                const submenu = item.nextElementSibling;
+                const chevron = item.querySelector('.chevron');
+
+                // Alterna a visibilidade do submenu
+                submenu.classList.toggle('show');
+                chevron.classList.toggle('rotate');
+
+                // Adiciona ou remove a classe active-button
+                const isActive = item.classList.toggle('active-button'); // Adiciona a borda ao clicar
+
+                // Adiciona ou remove a classe submenu-active
+                if (isActive) {
+                    item.classList.add('submenu-active'); // Adiciona a classe quando ativo
+                } else {
+                    item.classList.remove('submenu-active'); // Remove a classe quando inativo
+                }
+
+                // Remove a classe active-button de outros botões
+                document.querySelectorAll('.toggle-submenu').forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active-button');
+                        otherItem.classList.remove('submenu-active'); // Remove a classe de outros botões
+                        const otherChevron = otherItem.querySelector('.chevron');
+                        const otherSubmenu = otherItem.nextElementSibling;
+                        otherChevron.classList.remove('rotate');
+                        otherSubmenu.classList.remove('show');
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

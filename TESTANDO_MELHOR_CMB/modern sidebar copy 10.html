@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar Integrada com UI Elements</title>
+    
+    <!-- Bootstrap 4 CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <!-- Font Awesome 5 para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"> 
+    <!-- CSS Personalizado -->
+     <link rel="stylesheet" href="css/modern sidebar_styles3.css">
+    <!-- CSS Personalizado -->
+    <style>
+        /* Estilos Gerais da Sidebar */
+        body {
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        .wrapper {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .sidebar {
+            width: 250px;
+            background-color: #343a40;
+            color: #fff;
+            transition: width 0.3s ease;
+            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100%;
+        }
+
+        .sidebar-header a {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .sidebar-header a:hover {
+            color: #17a2b8;
+        }
+
+        .sidebar-profile .profile-details .name {
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .sidebar-profile .profile-details .role {
+            font-size: 0.9rem;
+            color: #adb5bd;
+        }
+
+        /* Estilos dos Botões de Navegação */
+        .sidebar-menu .nav-tabs .nav-link {
+            background-color: #343a40;
+            color: #adb5bd;
+            border: none;
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            padding: 12px 16px;
+            display: flex;
+            align-items: center;
+        }
+
+        .sidebar-menu .nav-tabs .nav-link:hover,
+        .sidebar-menu .nav-tabs .nav-link.active {
+            background-color: #495057;
+            color: #fff;
+            box-shadow: inset 4px 0 0 0 #17a2b8;
+        }
+
+        .sidebar-menu .nav-tabs .nav-link img {
+            width: 18px;
+            height: 18px;
+            margin-right: 8px;
+            transition: transform 0.3s ease;
+        }
+
+        .sidebar-menu .nav-tabs .nav-link:hover img,
+        .sidebar-menu .nav-tabs .nav-link.active img {
+            transform: scale(1.1);
+        }
+
+        /* Estilos dos Submenus */
+        .submenu {
+            list-style: none;
+            padding-left: 20px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, opacity 0.5s ease;
+            opacity: 0;
+        }
+
+        .submenu.show {
+            max-height: 500px; /* Valor suficientemente alto para acomodar o conteúdo */
+            opacity: 1;
+        }
+
+        .submenu li a {
+            padding: 8px 12px;
+            font-size: 0.9rem;
+            color: #ced4da;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            margin: 4px 0;
+        }
+
+        .submenu li a:hover {
+            background-color: #495057;
+            color: #fff;
+        }
+
+        /* Estilos dos Ícones nos Submenus */
+        .submenu li a .icon-logo {
+            width: 14px;
+            height: 14px;
+            margin-right: 8px;
+        }
+
+        /* Estilos dos Botões com Sombra Suave */
+        .sidebar-menu ul li a {
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            margin: 4px 8px;
+            border-radius: 4px;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .sidebar-menu ul li a:hover {
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Estilos do Chevron */
+        .chevron {
+            margin-left: auto;
+            transition: transform 0.3s ease, color 0.3s ease;
+            font-size: 0.8rem;
+            color: #adb5bd;
+        }
+
+        .chevron.rotate {
+            transform: rotate(90deg);
+            color: #17a2b8;
+        }
+
+        /* Ajustes nas Mensagens */
+        .message-content {
+            display: flex;
+            align-items: center;
+        }
+
+        .message-content img.icon-logo {
+            width: 14px;
+            height: 14px;
+            margin-right: 8px;
+        }
+
+        /* Estilos do Footer */
+        .tab-footer {
+            padding: 20px;
+            background-color: #343a40;
+            box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+            margin-top: auto;
+        }
+
+        .tab-footer .btn {
+            width: 100%;
+            background-color: #17a2b8;
+            border: none;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+            padding: 10px 0;
+            font-size: 1rem;
+            border-radius: 4px;
+        }
+
+        .tab-footer .btn:hover {
+            background-color: #138496;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .sidebar {
+                width: 200px;
+            }
+
+            .sidebar-menu .nav-tabs .nav-link img {
+                width: 16px;
+                height: 16px;
+                margin-right: 6px;
+            }
+
+            .chevron {
+                font-size: 0.7rem;
+            }
+
+            .submenu li a {
+                padding: 6px 10px;
+            }
+
+            .submenu li a .icon-logo {
+                width: 12px;
+                height: 12px;
+                margin-right: 6px;
+            }
+
+            .tab-footer .btn {
+                padding: 8px 0;
+                font-size: 0.9rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <aside class="sidebar h-100 nav-side-menu">
+            <!-- Header da Sidebar -->
+            <div class="sidebar-section sidebar-header">
+                <div class="sidebar-logo">
+                    <a href="#">Modern Sidebar</a>
+                </div>
+            </div>
+
+            <!-- Perfil do Usuário -->
+            <div class="sidebar-section sidebar-profile pt-4 pb-4">
+                <div class="profile-picture">
+                    <div class="picture-wrapper rounded-circle mx-auto">
+                        <img src="https://www.magic931.com.au/assets/docs/Jon_Snow.PNG?1543200080" class="img-fluid" alt="Foto de Perfil">
+                    </div>
+                    <span class="profile-alert"></span>
+                    <div class="profile-details text-center mt-2">
+                        <div class="name">Jhon Snow</div>
+                        <small class="role">King in the north</small>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Menu de Navegação -->
+            <div class="sidebar-section sidebar-menu p-0">
+                <ul class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                    <!-- Ícone de Menu -->
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0 active" id="menu-tab" data-toggle="tab" href="#menu" role="tab" aria-controls="menu" aria-selected="true">
+                            <i class="fas fa-bars"></i>
+                        </a>
+                    </li>
+                    <!-- Ícone do Ansible (Notificações) -->
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0" id="notifications-tab" data-toggle="tab" href="#notifications" role="tab" aria-controls="notifications" aria-selected="false">
+                            <img src="images/ansible-logo.png" alt="Ansible Icon">
+                            <span class="nav-alert bg-danger"></span>
+                        </a>
+                    </li>
+                    <!-- Ícone do Terraform (Mensagens) -->
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">
+                            <img src="images/terraform-logo.png" alt="Terraform Icon">
+                            <span class="nav-alert bg-success"></span>
+                        </a>
+                    </li>
+                    <!-- Ícone de Configurações -->
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">
+                            <i class="fas fa-cogs"></i>
+                        </a>
+                    </li>
+                </ul>
+
+                <!-- Conteúdo das Abas -->
+                <div class="tab-content" id="myTabContent">
+                    <!-- Aba de Menu -->
+                    <div class="tab-pane fade show active pt-3 pb-2" id="menu" role="tabpanel" aria-labelledby="menu-tab">
+                        <div class="tab-header text-uppercase p-2">Baseline</div>
+                        <ul>
+                            <!-- Apenas UI Elements com Submenu General -->
+                            <li>
+                                <a href="#" class="d-flex align-items-center toggle-submenu">
+                                    <img src="images/ui-elements-logo.png" alt="UI Elements Logo" class="icon-logo">
+                                    <span class="menu-text flex-fill">UI Elements</span>
+                                    <i class="fas fa-chevron-right chevron"></i>
+                                </a>
+                                <ul class="submenu">
+                                    <li><a href="#">General</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Aba de Notificações -->
+                    <div class="tab-pane fade pt-3 pb-2" id="notifications" role="tabpanel" aria-labelledby="notifications-tab">
+                        <div class="tab-header text-uppercase p-2">Notifications</div>
+                        <ul>
+                            <li>
+                                <a class="p-2 d-flex align-items-center text-decoration-none" href="#">
+                                    <div class="icon">
+                                        <i class="fas fa-check text-center text-success border border-success rounded-circle p-2"></i>
+                                    </div>
+                                    <div class="notification-content flex-fill">
+                                        <div class="notification-detail">Você tem novas mensagens!</div>
+                                        <div class="notification-time">6 minutos atrás</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="p-2 d-flex align-items-center text-decoration-none" href="#">
+                                    <div class="icon">
+                                        <i class="fas fa-exclamation-triangle text-center text-warning border border-warning rounded-circle p-2"></i>
+                                    </div>
+                                    <div class="notification-content flex-fill">
+                                        <div class="notification-detail">Atualização disponível!</div>
+                                        <div class="notification-time">Ontem</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <!-- Submenu Notifications para UI Elements (General) -->
+                            <div class="nav-side-menu">
+                                <div class="brand">Brand Logo</div>
+                                <div class="menu-list">
+                                    <ul id="menu-content" class="menu-content">
+                                        <li data-toggle="collapse" data-target="#products" class="collapsed active">
+                                            <a href="#"><i class="fa fa-gift fa-lg"></i> UI Elements <span class="arrow"></span>
+                                            <span class="notification">9</span></a>
+                                        </li>
+                                        <ul class="sub-menu collapse" id="products">
+                                            <li data-toggle="collapse" data-target="#general" class="collapsed"><a href="#">General <span class="arrow submenu-arrow">▼</span>
+                                            <span class="notification">2</span></a></li>
+                                            <ul class="sub-menu collapse" id="general">
+                                                <li><a href="#">Submenu 1</a></li>
+                                                <li><a href="#">Submenu 2</a></li>
+                                            </ul>
+                                        </ul>
+                                    </ul>
+                                </div>
+                            </div>
+
+                    <!-- Aba de Mensagens -->
+                    <div class="tab-pane fade pt-3 pb-2" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+                        <div class="tab-header text-uppercase p-2">Messages</div>
+                        <ul>
+                            <li>
+                                <a class="p-2 d-flex align-items-center text-decoration-none" href="#">
+                                    <div class="pic">
+                                        <img src="https://via.placeholder.com/40" alt="User Picture" class="rounded-circle">
+                                    </div>
+                                    <div class="message-content flex-fill">
+                                        <img src="images/terraform-logo.png" alt="Terraform Icon" class="icon-logo">
+                                        <div class="message-detail flex-fill">Mensagem relacionada ao Terraform</div>
+                                        <div class="message-time">3 horas atrás</div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Aba de Configurações -->
+                    <div class="tab-pane fade pt-3 pb-2" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                        <div class="tab-header text-uppercase p-2">Settings</div>
+                        <ul>
+                            <li>
+                                <a class="p-2 d-flex align-items-center text-decoration-none" href="#">
+                                    <i class="fas fa-user-cog mr-2"></i>
+                                    <span class="menu-text">Profile Settings</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="p-2 d-flex align-items-center text-decoration-none" href="#">
+                                    <i class="fas fa-lock mr-2"></i>
+                                    <span class="menu-text">Privacy Settings</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="p-2 d-flex align-items-center text-decoration-none" href="#">
+                                    <i class="fas fa-bell mr-2"></i>
+                                    <span class="menu-text">Notifications</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer da Sidebar -->
+            <div class="tab-footer text-center mt-auto">
+                <button type="button" class="btn btn-primary rounded-0">Logout</button>
+            </div>
+        </aside>
+
+        <!-- Conteúdo Principal -->
+        <div class="content flex-grow-1 p-4" style="margin-left: 250px;">
+            <h1>Bem-vindo ao Modern Sidebar!</h1>
+            <p>Este é um layout simples usando Bootstrap 4. Personalize-o para atender às suas necessidades!</p>
+        </div>
+    </div>
+    
+    <!-- Scripts Bootstrap 4 e jQuery -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+        // Script para alternar submenus com animação suave
+        document.querySelectorAll('.toggle-submenu').forEach(function(element) {
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+                const submenu = this.nextElementSibling;
+                submenu.classList.toggle('show');
+                this.querySelector('.chevron').classList.toggle('rotate');
+            });
+        });
+    </script>
+    
+</body>
+</html>

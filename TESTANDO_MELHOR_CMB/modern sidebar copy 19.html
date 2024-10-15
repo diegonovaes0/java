@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Sidebar with Buttons</title>
+    <style>
+        /* Estilos globais */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #0d0d0d;
+            margin: 0;
+            padding: 0;
+        }
+
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background-color: #4c4c4c;
+            position: fixed;
+            transition: all 0.3s ease;
+            padding-top: 20px;
+        }
+
+        .sidebar-header {
+            padding: 20px;
+            background-color: #4c4c4c;
+        }
+
+        .sidebar-logo a {
+            font-size: 20px;
+            font-weight: bold;
+            color: #ffffff;
+            text-decoration: none;
+            text-align: center;
+            display: block;
+        }
+
+        .sidebar-profile {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .profile-picture .picture-wrapper {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin: 0 auto;
+        }
+
+        .profile-picture img {
+            width: 100%;
+            height: auto;
+        }
+
+        .name {
+            color: white;
+            font-size: 18px;
+        }
+
+        .role {
+            color: #727272;
+            font-size: 14px;
+        }
+
+        .sidebar-menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-menu li {
+            padding: 15px 20px;
+        }
+
+        .sidebar-menu li a {
+            color: #727272;
+            text-decoration: none;
+            display: block;
+            transition: all 0.3s ease;
+        }
+
+        .sidebar-menu li a:hover {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        .sidebar-menu li.active a {
+            background-color: #727272;
+            color: #ffffff;
+        }
+
+        .sidebar-menu li .icon {
+            margin-right: 10px;
+        }
+
+        /* Botões */
+        .sidebar-button {
+            background-color: #727272;
+            color: #d3d3d3;
+            padding: 10px;
+            margin: 5px 20px;
+            width: calc(100% - 40px);
+            border: none;
+            text-align: left;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            cursor: pointer;
+            display: block;
+        }
+
+        .sidebar-button:hover {
+            background-color: #4c4c4c;
+            color: #ffffff;
+        }
+
+        .sidebar-button.active {
+            background-color: #000000;
+            color: #ffffff;
+        }
+
+        /* Estilo específico para o botão "Ansible" */
+        #btn-ansible {
+            border: none; /* Remover borda verde */
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <!-- Seção de cabeçalho da sidebar -->
+        <div class="sidebar-section sidebar-header">
+            <div class="sidebar-logo">
+                <a href="#" class="text-light">Modern Sidebar</a>
+            </div>
+        </div>
+
+        <!-- Seção de perfil da sidebar -->
+        <div class="sidebar-section sidebar-profile pt-4 pb-4">
+            <div class="profile-picture">
+                <div class="picture-wrapper rounded-circle ml-auto mr-auto">
+                    <img src="https://www.magic931.com.au/assets/docs/Jon_Snow.PNG?1543200080" class="img-fluid" alt="Foto de Perfil">
+                </div>
+                <div class="profile-details text-center mt-2">
+                    <div class="name">Jon Snow</div>
+                    <small class="role">King in the North</small>
+                </div>
+            </div>
+        </div>
+
+        <!-- Menu da sidebar -->
+        <ul class="sidebar-menu">
+            <li><a href="#" class="sidebar-button" id="btn-terraform">Terraform</a></li>
+            <li><a href="#" class="sidebar-button active" id="btn-ansible">Ansible</a></li>
+            <li><a href="#" class="sidebar-button" id="btn-linux">Linux</a></li>
+            <li><a href="#" class="sidebar-button" id="btn-java">Java</a></li>
+            <li><a href="#" class="sidebar-button" id="btn-python">Python</a></li>
+        </ul>
+    </div>
+</body>
+</html>

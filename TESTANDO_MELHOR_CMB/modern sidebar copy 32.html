@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar com Submenus</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <style>
+        /* Estilo Geral */
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #2e353d; /* Cor de fundo */
+            font-family: Verdana, sans-serif; /* Fonte utilizada no menu */
+        }
+
+        /* Estilos da Sidebar */
+        .nav-side-menu {
+            overflow: auto; /* Permite que o conteúdo transborde */
+            font-size: 14px; /* Tamanho da fonte */
+            font-weight: 200; /* Peso da fonte */
+            background: linear-gradient(180deg, #2c2f33, #181c20, #23282e); /* Gradiente de cinza escuro, preto e cinza */
+            position: fixed; /* Fixa a barra lateral */
+            top: 0;
+            left: 0;
+            width: 300px; /* Largura da barra lateral */
+            height: 100%; /* Altura total */
+            color: #e1ffff; /* Cor do texto na barra lateral */
+        }
+
+        .nav-side-menu .brand {
+            background-color: #23282e; /* Cor de fundo da seção de marca */
+            line-height: 50px; /* Altura da linha */
+            display: block; /* Exibe como bloco */
+            text-align: center; /* Centraliza o texto */
+            font-size: 18px; /* Tamanho da fonte */
+            font-weight: bold; /* Peso da fonte */
+            color: #ffffff; /* Cor do texto */
+        }
+
+        /* Estilos para os itens do menu */
+        .nav-side-menu ul, .nav-side-menu li {
+            list-style: none; /* Remove o estilo da lista */
+            padding: 0;
+            margin: 0;
+            line-height: 35px; /* Altura da linha dos itens */
+            cursor: pointer; /* Muda o cursor ao passar o mouse */
+        }
+
+        .nav-side-menu li {
+            background-color: #181c20; /* Fundo dos itens do menu */
+            border: none; /* Remove a borda padrão */
+            border-bottom: 1px solid #23282e; /* Borda do item do menu */
+            transition: background-color 0.3s ease; /* Transição suave para a cor de fundo */
+        }
+
+        /* Estilos para os links do menu */
+        .nav-side-menu li a {
+            display: flex; /* Usa flexbox para alinhamento */
+            align-items: center; /* Alinha verticalmente */
+            padding: 10px 15px; /* Espaçamento */
+            text-decoration: none; /* Remove sublinhado */
+            color: #e1ffff; /* Cor do texto padrão */
+            background-color: transparent; /* Fundo transparente */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave */
+            width: 100%; /* Ocupa toda a largura */
+        }
+
+        /* Hover para os links do menu */
+        .nav-side-menu li a:hover {
+            background-color: #2e353d; /* Fundo ao passar o mouse */
+            color: #ffffff; /* Cor do texto ao passar o mouse */
+        }
+
+        /* Classe para botões ativos */
+        .nav-side-menu li a.active {
+            background-color: #2e353d; /* Cor forte para o botão ativo */
+            color: #ffffff; /* Cor do texto */
+            border-left: 4px solid #181c20; /* Destaque com borda */
+            border-bottom: 1px solid #181c20;
+        }
+
+        /* Estilos para os submenus */
+        .submenu {
+            max-height: 0; /* Inicia fechado */
+            overflow: hidden; /* Esconde o conteúdo quando max-height é 0 */
+            transition: max-height 0.3s ease; /* Transição suave para a altura */
+            list-style: none; /* Remove estilo de lista */
+            padding-left: 20px; /* Espaçamento à esquerda */
+            background-color: #181c20; /* Cor de fundo do submenu */
+            border: none;
+            line-height: 28px;
+            border-bottom: 1px solid #23282e;
+            margin-left: 0px;
+            transition: max-height 0.5s ease, padding 0.2s ease;
+        }
+
+        .submenu.show {
+            max-height: 500px; /* Ajuste conforme necessário */
+            border-bottom: 1px solid #23282e;
+            background-color: #2e353d; /* Manter a cor igual ao botão ativo */
+            margin-left: 10px;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        /* Estilos para os links dentro do submenu */
+        .submenu li a {
+            display: block; /* Faz com que o link ocupe toda a área do item */
+            padding: 10px; /* Adiciona espaçamento ao redor do texto */
+            background-color: transparent; /* Fundo transparente para manter a cor do botão principal */
+            color: #ffffff; /* Cor do texto branco para contraste */
+            text-decoration: none; /* Remove sublinhado */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Suave transição */
+            line-height: 35px;
+        }
+
+        /* Efeito de hover para os itens do submenu */
+        .submenu li a:hover {
+            background-color: #181c20; /* Cor do fundo ao passar o mouse */
+            color: #ffffff; /* Cor do texto ao passar o mouse */
+        }
+
+        /* Estilos para os ícones de logo */
+        .icon-logo {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        /* Estilos para a seta (chevron) que indica submenus */
+        .chevron {
+            margin-left: auto;
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .chevron.rotate {
+            transform: rotate(90deg); /* Rotação ao expandir */
+        }
+
+        /* Notificações */
+        .notification {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: transparent;
+            color: white;
+            text-align: center;
+            line-height: 18px;
+            margin-left: 5px;
+            transition: background-color 0.3s;
+            font-size: 12px;
+            border: 1px solid #e1ffff;
+        }
+
+        .notification:hover {
+            background-color: #d19b3d;
+            border-color: #d19b3d;
+        }
+
+        /* Barra de alerta */
+        .nav-alert {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        /* Cor da sidebar */
+        .sidebar {
+            background-color: #343a40; /* Cor de fundo da sidebar */
+            transition: all 0.3s ease; /* Transição suave */
+        }
+
+        /* Estilos para as abas */
+        .tab-pane {
+            transition: opacity 0.3s ease, visibility 0.3s ease; /* Transições suaves */
+        }
+
+        .tab-pane.fade.show {
+            opacity: 1; /* Opacidade total quando ativo */
+            visibility: visible; /* Visibilidade total */
+        }
+
+        .tab-pane.fade {
+            opacity: 0; /* Opacidade zero quando não ativo */
+            visibility: hidden; /* Invisível */
+        }
+
+        /* Estilo opcional para o conteúdo principal */
+        .content {
+            margin-left: 300px; /* Espaço para a sidebar */
+            padding: 20px;
+            transition: margin-left 0.3s ease; /* Transição suave */
+            background-color: #282c34; /* Cor de fundo mais escura */
+            color: #ffffff; /* Cor do texto */
+            min-height: 100vh; /* Altura mínima */
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .nav-side-menu {
+                width: 100%; /* Largura total em telas menores */
+                height: auto;
+                position: relative;
+            }
+
+            .content {
+                margin-left: 0; /* Remove a margem esquerda do conteúdo */
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <aside class="sidebar h-100 nav-side-menu">
+            <div class="sidebar-section sidebar-header">
+                <div class="sidebar-logo">
+                    <a href="#" class="text-light brand">Modern Sidebar</a>
+                </div>
+            </div>
+            <div class="sidebar-section sidebar-profile pt-4 pb-4">
+                <div class="profile-info text-center">
+                    <img src="https://via.placeholder.com/100" alt="Logo" class="icon-logo rounded-circle">
+                    <h5 class="mt-2">Usuário</h5>
+                </div>
+            </div>
+            <ul>
+                <li>
+                    <a href="#home" class="active"><i class="fas fa-home"></i> Home</a>
+                </li>
+                <li>
+                    <a href="#services" class="dropdown-toggle">
+                        <i class="fas fa-cogs"></i> Serviços <i class="fas fa-chevron-right chevron"></i>
+                    </a>
+                    <ul class="submenu">
+                        <li><a href="#service1">Serviço 1</a></li>
+                        <li><a href="#service2">Serviço 2</a></li>
+                        <li><a href="#service3">Serviço 3</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="#about"><i class="fas fa-info-circle"></i> Sobre</a>
+                </li>
+                <li>
+                    <a href="#contact"><i class="fas fa-envelope"></i> Contato</a>
+                </li>
+            </ul>
+        </aside>
+        
+        <div class="content">
+            <h1>Conteúdo Principal</h1>
+            <p>Este é o conteúdo da página que será exibido ao lado da barra lateral.</p>
+        </div>
+    </div>
+
+    <!-- Scripts do jQuery e Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+
+    <script>
+        // Script para alternar submenu
+        $(document).ready(function() {
+            $('.dropdown-toggle').click(function() {
+                $(this).next('.submenu').toggleClass('show'); // Alterna a classe show
+                $(this).find('.chevron').toggleClass('rotate'); // Rotaciona o ícone da seta
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar com Submenus</title>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="css/modern sidebar_styles5.css">
+    
+    <style>
+        body {
+            background-color: #0d0d0d;
+        }
+
+        .sidebar {
+            background-color: #343a40;
+            transition: all 0.3s ease;
+        }
+
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            list-style: none;
+            padding-left: 20px;
+            background-color: #333333;
+        }
+
+        .submenu.show {
+            max-height: 500px;
+        }
+
+        .submenu li {
+            display: block;
+            width: 100%;
+        }
+
+        .submenu li a {
+            display: block;
+            padding: 10px;
+            background-color: #000000;
+            color: #ffffff;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .submenu li a:hover {
+            background-color: #06bebe;
+            color: #ffffff;
+        }
+
+        .chevron {
+            margin-left: auto;
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .chevron.rotate {
+            transform: rotate(90deg);
+        }
+
+        .active-button {
+            border: 2px solid #899cb7;
+            border-radius: 4px;
+            background-color: #0d0d0d;
+        }
+
+        .content {
+            transition: margin-left 0.3s ease;
+            background-color: #282c34;
+            color: #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <aside class="sidebar h-100 nav-side-menu">
+            <div class="sidebar-section sidebar-header">
+                <div class="sidebar-logo">
+                    <a href="#" class="text-light">Modern Sidebar</a>
+                </div>
+            </div>
+
+            <div class="sidebar-section sidebar-menu p-0">
+                <ul class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                    <li class="nav-item">
+                        <span class="nav-alert bg-danger"></span>
+                        <a class="nav-link rounded-0 active" id="menu-tab" data-toggle="tab" href="#menu" role="tab" aria-controls="menu" aria-selected="true">
+                            <i class="fas fa-bars"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0" id="notifications-tab" data-toggle="tab" href="#notifications" role="tab" aria-controls="notifications" aria-selected="false">
+                            <img src="images/ansible-logo.png" alt="Ansible Icon" class="icon-logo">
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">
+                            <img src="images/terraform-logo.png" alt="Terraform Icon" class="icon-logo">
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active pt-3 pb-2" id="menu" role="tabpanel" aria-labelledby="menu-tab">
+                        <div class="tab-header text-uppercase p-2">Baseline</div>
+                        <ul>
+                            <li>
+                                <a href="#" class="d-flex align-items-center toggle-submenu ansible">
+                                    <img src="images/ansible-logo.png" alt="Ansible Logo" class="icon-logo">
+                                    <span class="menu-text flex-fill">Playbook</span>
+                                    <i class="fas fa-chevron-right chevron"></i>
+                                </a>
+                                <ul class="submenu submenu-ansible">
+                                    <li><a href="#">Submenu Ansible 1</a></li>
+                                    <li><a href="#">Submenu Ansible 2</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="d-flex align-items-center toggle-submenu terraform">
+                                    <img src="images/terraform-logo.png" alt="Terraform Logo" class="icon-logo">
+                                    <span class="menu-text flex-fill">Terraform</span>
+                                    <i class="fas fa-chevron-right chevron"></i>
+                                </a>
+                                <ul class="submenu submenu-terraform">
+                                    <li><a href="#">Submenu Terraform 1</a></li>
+                                    <li><a href="#">Submenu Terraform 2</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <div class="content">
+            <h1>Conteúdo Principal</h1>
+            <p>Bem-vindo ao seu painel de controle.</p>
+        </div>
+    </div>
+
+    <!-- jQuery e Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        document.querySelectorAll('.toggle-submenu').forEach(item => {
+            item.addEventListener('click', event => {
+                const submenu = item.nextElementSibling;
+                const chevron = item.querySelector('.chevron');
+
+                // Alterna a visibilidade do submenu
+                submenu.classList.toggle('show');
+                chevron.classList.toggle('rotate');
+
+                // Adiciona ou remove a classe active-button
+                item.classList.toggle('active-button');
+
+                // Remove a classe active-button de outros botões
+                document.querySelectorAll('.toggle-submenu').forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active-button');
+                        const otherChevron = otherItem.querySelector('.chevron');
+                        const otherSubmenu = otherItem.nextElementSibling;
+                        otherChevron.classList.remove('rotate');
+                        otherSubmenu.classList.remove('show');
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

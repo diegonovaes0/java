@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar com Submenus</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+      <!-- CSS Personalizado -->
+      <link rel="stylesheet" href="css/modern_sidebar_styles5.css">
+    <style>
+
+        /* Aplicação da Cor de Fundo Principal */
+        body {
+            background-color: #0d0d0d; /* Cor #0d0d0d */
+        }
+
+        /* Sidebar e submenu estilos */
+        .sidebar {
+            background-color: #333333; /* Cor #333333 */
+            transition: all 0.3s ease;
+            width: 250px; /* Largura fixa para a sidebar */
+            height: 100vh; /* Altura completa da viewport */
+            position: fixed; /* Fixar a sidebar */
+            left: 0;
+            top: 0;
+            overflow-y: auto; /* Rolagem vertical se necessário */
+        }
+
+        /* Estilos dos Links de Navegação */
+        .nav-link {
+            background-color: transparent;
+            color: #ffffff;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            padding: 12px 20px; /* Padding ajustado para melhor espaçamento */
+            font-size: 1rem; /* Tamanho da fonte */
+        }
+
+        /* Botões Ansible e Terraform com Redução de Tamanho */
+        .ansible, .terraform {
+            background-color: #15181c; /* Cor #15181c */
+            padding: 8px 16px; /* Reduzido de 10px para 8px */
+            border: 2px solid #899cb7;
+            transition: all 0.3s ease;
+            margin-bottom: 8px; /* Reduzido de 10px para 8px */
+            font-size: 0.9rem; /* Reduzido o tamanho da fonte */
+            border-radius: 4px; /* Bordas arredondadas */
+        }
+
+        .ansible {
+            border-color: #00FF00; /* Mantém a borda verde para Ansible */
+        }
+
+        /* Submenu estilos */
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.2s ease;
+            list-style: none;
+            padding-left: 15px; /* Reduzido de 20px para 15px */
+            background-color: #262626; /* Ajuste de cor para contraste */
+            font-size: 0.85rem; /* Reduzido o tamanho da fonte */
+        }
+
+        .submenu.show {
+            max-height: 300px; /* Reduzido de 500px para 300px */
+            padding: 8px 1px; /* Reduzido o padding */
+        }
+
+        .submenu li {
+            width: 100%;
+        }
+
+        .submenu li a {
+            display: block;
+            padding: 8px 16px; /* Reduzido de 10px para 8px */
+            background-color: #333333; /* Cor de fundo do submenu */
+            color: #ffffff;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 4px; /* Bordas arredondadas */
+            margin-bottom: 4px; /* Espaçamento entre itens */
+        }
+
+        .submenu li a:hover {
+            background-color: #15181c; /* Cor de fundo ao passar o mouse */
+            color: #ffffff;
+            box-shadow: 0 0 10px #00FF00, 0 0 20px #00FF00, 0 0 30px #00FF00; /* Efeito neon */
+        }
+
+        .chevron {
+            margin-left: auto;
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .chevron.rotate {
+            transform: rotate(90deg);
+        }
+
+        /* Estilo para o botão ativo */
+        .active-button {
+            background-color: #15181c; /* Cor ativa #15181c */
+            border: 2px solid #ffffff; /* Borda branca para destaque */
+            border-radius: 4px;
+            box-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff; /* Sombra para destaque */
+        }
+
+        /* Estilo do conteúdo principal */
+        .content {
+            margin-left: 250px; /* Espaço para a sidebar */
+            padding: 20px; /* Padding para o conteúdo */
+            background-color: #282c34;
+            color: #ffffff;
+            min-height: 100vh; /* Altura mínima para preencher a viewport */
+            transition: margin-left 0.3s ease;
+        }
+
+        /* Transição para a borda ao abrir */
+        .toggle-submenu.active-button {
+            border: 2px solid #ff6600;
+            transition: all 1s ease;
+        }
+
+        /* Efeito neon com metal para submenu do Ansible */
+        .submenu-ansible li a {
+            position: relative;
+            overflow: hidden;
+            background-color: #333333; /* Cor de fundo */
+            color: #00FF00; /* Cor inicial do texto */
+            border: 1px solid #00FF00; /* Borda para efeito metálico */
+            transition: all 0.3s ease;
+            border-radius: 4px; /* Bordas arredondadas */
+        }
+
+        .submenu-ansible li a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, rgba(0,255,0,0.3), rgba(0,255,0,0.7), rgba(0,255,0,0.3));
+            transition: all 0.5s ease;
+            transform: skewX(-45deg);
+            z-index: 0;
+        }
+
+        .submenu-ansible li a:hover::before,
+        .submenu-ansible li a.active::before {
+            left: 100%;
+        }
+
+        .submenu-ansible li a:hover,
+        .submenu-ansible li a.active {
+            color: #ffffff; /* Cor do texto ao selecionar */
+            background-color: #1a1a1a; /* Alteração sutil do fundo */
+            box-shadow: 0 0 10px #00FF00, 0 0 20px #00FF00, 0 0 30px #00FF00; /* Efeito neon */
+            border-color: #00FF00; /* Mantém a borda verde */
+            z-index: 1;
+        }
+
+        /* Efeito de Hover para os Botões Principais */
+        .ansible:hover, .terraform:hover {
+            background-color: #15181c; /* Cor ao passar o mouse */
+            color: #ffffff; /* Cor do texto */
+            box-shadow: 0 0 10px #00FF00, 0 0 20px #00FF00, 0 0 30px #00FF00; /* Efeito neon */
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        /* Remover a sombra ao sair com o mouse */
+        .ansible, .terraform {
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <aside class="sidebar h-100 nav-side-menu">
+            <div class="sidebar-section sidebar-header">
+                <div class="sidebar-logo">
+                    <a href="#" class="text-light">Modern Sidebar</a>
+                </div>
+            </div>
+            <div class="sidebar-section sidebar-profile pt-4 pb-4">
+                <div class="profile-picture">
+                    <div class="picture-wrapper rounded-circle ml-auto mr-auto">
+                        <img src="https://www.magic931.com.au/assets/docs/Jon_Snow.PNG?1543200080" class="img-fluid" alt="Foto de Perfil">
+                    </div>
+                    <span class="profile-alert"></span>
+                    <div class="profile-details text-center mt-2">
+                        <div class="name">Jhon Snow</div>
+                        <small class="role">King in the north</small>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-section sidebar-menu p-0">
+                <ul class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                    <!-- Menu 1 -->
+                    <li class="nav-item">
+                        <span class="nav-alert bg-danger"></span>
+                        <a class="nav-link rounded-0" id="menu1-tab" data-toggle="tab" href="#menu1" role="tab" aria-controls="menu1" aria-selected="false">
+                            <i class="fas fa-home"></i> <!-- Ícone atualizado -->
+                        </a>
+                    </li>
+                    <!-- Menu 2 -->
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0" id="menu2-tab" data-toggle="tab" href="#menu2" role="tab" aria-controls="menu2" aria-selected="false">
+                            <img src="images/ansible-logo.png" alt="Ansible Icon" class="icon-logo">
+                            <span class="nav-alert bg-danger"></span>
+                        </a>
+                    </li>
+                    <!-- Menu 3 -->
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0" id="menu3-tab" data-toggle="tab" href="#menu3" role="tab" aria-controls="menu3" aria-selected="false">
+                            <img src="images/terraform-logo.png" alt="Terraform Icon" class="icon-logo">
+                            <span class="nav-alert bg-success"></span>
+                        </a>
+                    </li>
+                    <!-- Menu 4 -->
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0" id="menu4-tab" data-toggle="tab" href="#menu4" role="tab" aria-controls="menu4" aria-selected="false">
+                            <i class="far fa-comment"></i>
+                            <span class="nav-alert bg-success"></span>
+                        </a>
+                    </li>
+                    <!-- Menu 5 -->
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0" id="menu5-tab" data-toggle="tab" href="#menu5" role="tab" aria-controls="menu5" aria-selected="false">
+                            <i class="fas fa-cogs"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <!-- Conteúdo do Menu 1 -->
+                    <div class="tab-pane fade" id="menu1" role="tabpanel" aria-labelledby="menu1-tab">
+                        <div class="tab-header text-uppercase p-2">Home</div>
+                        <p>Conteúdo do Menu Home.</p>
+                    </div>
+                    <!-- Conteúdo do Menu 2 (Ansible) -->
+                    <div class="tab-pane fade" id="menu2" role="tabpanel" aria-labelledby="menu2-tab">
+                        <div class="tab-header text-uppercase p-2">Ansible</div>
+                        <ul>
+                            <!-- Botões Ansible com submenus -->
+                            <li>
+                                <a href="#" class="d-flex align-items-center toggle-submenu ansible">
+                                    <img src="images/ansible-logo.png" alt="Ansible Logo" class="icon-logo">
+                                    <span class="menu-text flex-fill">Playbook</span>
+                                    <i class="fas fa-chevron-right chevron"></i>
+                                </a>
+                                <ul class="submenu submenu-ansible">
+                                    <li><a href="#">Submenu Ansible 1</a></li>
+                                    <li><a href="#">Submenu Ansible 2</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Conteúdo do Menu 3 (Terraform) -->
+                    <div class="tab-pane fade" id="menu3" role="tabpanel" aria-labelledby="menu3-tab">
+                        <div class="tab-header text-uppercase p-2">Terraform</div>
+                        <ul>
+                            <li>
+                                <a href="#" class="d-flex align-items-center toggle-submenu terraform">
+                                    <img src="images/terraform-logo.png" alt="Terraform Logo" class="icon-logo">
+                                    <span class="menu-text flex-fill">Terraform</span>
+                                    <i class="fas fa-chevron-right chevron"></i>
+                                </a>
+                                <ul class="submenu submenu-terraform">
+                                    <li><a href="#">Submenu Terraform 1</a></li>
+                                    <li><a href="#">Submenu Terraform 2</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Conteúdo do Menu 4 -->
+                    <div class="tab-pane fade" id="menu4" role="tabpanel" aria-labelledby="menu4-tab">
+                        <div class="tab-header text-uppercase p-2">Comentários</div>
+                        <p>Conteúdo do Menu de Comentários.</p>
+                    </div>
+                    <!-- Conteúdo do Menu 5 -->
+                    <div class="tab-pane fade" id="menu5" role="tabpanel" aria-labelledby="menu5-tab">
+                        <div class="tab-header text-uppercase p-2">Configurações</div>
+                        <p>Conteúdo do Menu de Configurações.</p>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <div class="content">
+            <h1>Conteúdo Principal</h1>
+            <p>Bem-vindo ao seu painel de controle.</p>
+        </div>
+    </div>
+
+    <!-- jQuery e Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.3/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- JS para o submenu -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Adiciona evento de clique para os itens do menu colapsáveis
+            document.querySelectorAll('.toggle-submenu').forEach(function (item) {
+                item.addEventListener('click', function (e) {
+                    e.preventDefault(); // Evita o comportamento padrão do link
+                    // Toggle para expandir ou colapsar o submenu
+                    const submenu = item.nextElementSibling;
+                    const chevron = item.querySelector('.chevron');
+
+                    submenu.classList.toggle('show');  // Exibe ou oculta o submenu
+                    chevron.classList.toggle('rotate');  // Rotaciona o ícone
+
+                    // Alterna a classe active-button para o botão ativo
+                    item.classList.toggle('active-button');
+
+                    // Adiciona ou remove a classe 'active' nos links do submenu para aplicar estilos ativos
+                    submenu.querySelectorAll('a').forEach(function(subItem) {
+                        subItem.classList.toggle('active');
+                    });
+
+                    // Fecha outros submenus abertos ao abrir um novo
+                    document.querySelectorAll('.toggle-submenu').forEach(function (otherItem) {
+                        if (otherItem !== item) {
+                            const otherSubmenu = otherItem.nextElementSibling;
+                            const otherChevron = otherItem.querySelector('.chevron');
+                            otherSubmenu.classList.remove('show');
+                            otherChevron.classList.remove('rotate');
+                            otherItem.classList.remove('active-button');
+                            // Remove a classe 'active' dos links do submenu fechado
+                            otherSubmenu.querySelectorAll('a').forEach(function(subItem) {
+                                subItem.classList.remove('active');
+                            });
+                        }
+                    });
+                });
+            });
+        });
+    </script>
+</body>
+
+</html>

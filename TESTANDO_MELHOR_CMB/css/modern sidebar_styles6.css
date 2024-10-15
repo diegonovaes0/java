@@ -1,0 +1,165 @@
+body {
+    background-color: #0d0d0d; /* Cor de fundo */
+}
+
+/* Seu CSS Personalizado com Transições */
+.nav-side-menu {
+    overflow: auto; /* Permite que o conteúdo transborde */
+    font-family: verdana; /* Fonte utilizada no menu */
+    font-size: 12px; /* Tamanho da fonte */
+    font-weight: 200; /* Peso da fonte */
+    background: linear-gradient(180deg, #2c2f33, #181c20, #23282e); /* Gradiente de cinza escuro, preto e cinza */
+    position: fixed; /* Fixa a barra lateral */
+    top: 0px; /* Alinhamento ao topo */
+    width: 300px; /* Largura da barra lateral */
+    height: 100%; /* Altura total */
+    color: #e1ffff; /* Cor do texto na barra lateral */
+}
+
+.nav-side-menu .brand {
+    background-color: #23282e; /* Cor de fundo da seção de marca */
+    line-height: 50px; /* Altura da linha */
+    display: block; /* Exibe como bloco */
+    text-align: center; /* Centraliza o texto */
+    font-size: 14px; /* Tamanho da fonte */
+}
+
+.nav-side-menu ul,
+.nav-side-menu li {
+    list-style: none; /* Remove o estilo da lista */
+    padding: 0px; /* Remove o padding */
+    margin: 0px; /* Remove a margem */
+    line-height: 35px; /* Altura da linha dos itens */
+    cursor: pointer; /* Muda o cursor ao passar o mouse */
+}
+
+.nav-side-menu li {
+    background-color: #181c20; /* Fundo dos itens do menu */
+    border: none; /* Remove a borda padrão */
+    line-height: 28px; /* Altura da linha dos itens */
+    border-bottom: 1px solid #23282e; /* Borda do item do menu */
+    margin-left: 0px; /* Margem esquerda */
+    transition: background-color 0.3s ease; /* Transição suave para a cor de fundo */
+}
+
+.nav-side-menu li.ansible-active {
+    background-color: #4f5b69; /* Cor do fundo quando o botão Ansible é ativo */
+    border: 2px solid #06bebe; /* Borda ao clicar no botão Ansible */
+}
+
+.nav-side-menu li:hover {
+    background-color: #1e3855; /* Fundo do item em hover */
+    transition: background-color 0.3s ease; /* Transição suave */
+}
+
+/* Estilo para o submenu */
+.submenu {
+    max-height: 0; /* Inicia fechado */
+    overflow: hidden; /* Esconde o conteúdo quando max-height é 0 */
+    transition: max-height 0.3s ease; /* Transição suave para a altura */
+    background-color: #444444; /* Nova cor de fundo do submenu */
+    list-style: none; /* Remove estilo de lista */
+    padding-left: 20px; /* Espaçamento à esquerda */
+}
+
+/* Estilos para links dentro do submenu */
+.submenu li a {
+    padding: 5px 0;
+    font-size: 0.9rem;
+    background-color: transparent; /* Fundo transparente para evitar o tremor */
+    color: #ffffff; /* Cor do texto no submenu */
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Efeito de hover para links do submenu */
+.submenu li a:hover {
+    color: #ff0000; /* Nova cor de texto em hover no submenu */
+}
+
+/* Estilo para as setas dos submenus */
+.submenu-arrow {
+    margin-left: 10px; /* Margem esquerda da seta do submenu */
+    font-size: 10px; /* Tamanho da fonte da seta */
+    transition: transform 0.3s; /* Transição suave para a rotação */
+    color: #ff0000; /* Cor da seta do submenu */
+}
+
+/* Estilo para os ícones de logo */
+.icon-logo {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+/* Estilos para a seta (chevron) que indica submenus */
+.chevron {
+    margin-left: auto;
+    margin-right: 10px;
+    transition: transform 0.3s ease;
+}
+
+/* Rota a seta quando o submenu está aberto */
+.chevron.rotate {
+    transform: rotate(90deg);
+}
+
+/* Efeito de hover para notificações */
+.notification:hover {
+    background-color: #6e0a0a;
+    border-color: #ff0000;
+}
+
+/* Estilo para a barra amarela/laranja */
+.nav-alert {
+    position: absolute;
+    top: 10px; /* Ajuste a posição conforme necessário */
+    right: 10px; /* Ajuste a posição conforme necessário */
+    width: 10px;
+    height: 10px;
+    border-radius: 50%; /* Formato circular */
+}
+
+/* Estilos para abas ativas */
+.tab-pane {
+    transition: opacity 0.3s ease, visibility 0.3s ease; /* Transições suaves */
+}
+
+/* Estilos para abas ativas */
+.tab-pane.fade.show {
+    opacity: 1; /* Opacidade total quando ativo */
+    visibility: visible; /* Visibilidade total */
+}
+
+/* Estilos para abas não ativas */
+.tab-pane.fade {
+    opacity: 0; /* Opacidade zero quando não ativo */
+    visibility: hidden; /* Invisível */
+}
+
+/* Estilo opcional para o conteúdo principal */
+.content {
+    transition: margin-left 0.3s ease; /* Transição suave */
+    background-color: #282c34; /* Cor de fundo mais escura */
+    color: #ffffff; /* Cor do texto */
+}
+
+/* Adiciona uma borda ao botão ao ser clicado */
+.active-button {
+    border: 2px solid #899cb7; /* Cor da borda ao clicar */
+    border-radius: 4px; /* Adiciona bordas arredondadas, se desejado */
+    background-color: #0d0d0d; /* Cor de fundo quando ativo */
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .nav-side-menu {
+        margin-left: 10px; /* Margem esquerda em telas menores */
+        font-size: 10px; /* Tamanho da fonte em telas menores */
+        transition: transform 1s; /* Transição suave ao ajustar o tamanho */
+        color: #e1ffff; /* Cor do texto */
+    }
+
+    .content {
+        margin-left: 0; /* Remove a margem esquerda do conteúdo */
+    }
+}

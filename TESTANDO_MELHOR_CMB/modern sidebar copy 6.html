@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar com Submenus</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="css/modern sidebar_styles2.css">
+    
+    <style>
+        /* Estilos adicionais para submenus */
+        .submenu {
+            list-style: none;
+            padding-left: 20px;
+            display: none;
+        }
+
+        .submenu.show {
+            display: block;
+        }
+
+        .submenu li a {
+            padding: 5px 0;
+            font-size: 0.9rem;
+        }
+
+        .icon-logo {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        .chevron {
+            margin-left: auto;
+            transition: transform 0.3s;
+        }
+
+        .chevron.rotate {
+            transform: rotate(90deg);
+        }
+        
+        /* Ajustes para os ícones do nav-tabs */
+        .nav-link img {
+            width: 20px;
+            height: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <aside class="sidebar h-100 nav-side-menu">
+            <div class="sidebar-section sidebar-header">
+                <div class="sidebar-logo">
+                    <a href="#" class="text-light">Modern Sidebar</a>
+                </div>
+            </div>
+            <div class="sidebar-section sidebar-profile pt-4 pb-4">
+                <div class="profile-picture">
+                    <div class="picture-wrapper rounded-circle ml-auto mr-auto">
+                        <img src="https://www.magic931.com.au/assets/docs/Jon_Snow.PNG?1543200080" class="img-fluid" alt="Foto de Perfil">
+                    </div>
+                    <span class="profile-alert"></span>
+                    <div class="profile-details text-center mt-2">
+                        <div class="name">Jhon Snow</div>
+                        <small class="role">King in the north</small>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-section sidebar-menu p-0">
+                <ul class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                    <li class="nav-item">
+                        
+                         <span class="nav-alert bg-danger"></span>
+                        <a class="nav-link rounded-0 active" id="menu-tab" data-toggle="tab" href="#menu" role="tab" aria-controls="menu" aria-selected="true">
+                            <i class="fas fa-bars"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Substituído o ícone do sino pelo ícone do Ansible -->
+                        <a class="nav-link rounded-0" id="notifications-tab" data-toggle="tab" href="#notifications" role="tab" aria-controls="notifications" aria-selected="false">
+                            <img src="images/ansible-logo.png" alt="Ansible Icon" class="icon-logo">
+                            <span class="nav-alert bg-danger"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Substituído o ícone de mensagem pelo ícone do Terraform -->
+                        <a class="nav-link rounded-0" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">
+                            <img src="images/terraform-logo.png" alt="Terraform Icon" class="icon-logo">
+                            <span class="nav-alert bg-success"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">
+                            <i class="fas fa-cogs"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <!-- Menu Baseline -->
+                    <div class="tab-pane fade show active pt-3 pb-2" id="menu" role="tabpanel" aria-labelledby="menu-tab">
+                        <div class="tab-header text-uppercase p-2">Baseline</div>
+                        <ul>
+                            <!-- Botões Ansible e Terraform com submenus -->
+                            <li>
+                                <a href="#" class="d-flex align-items-center toggle-submenu">
+                                    <img src="images/ansible-logo.png" alt="Ansible Logo" class="icon-logo">
+                                    <span class="menu-text flex-fill">Ansible</span>
+                                    <i class="fas fa-chevron-right chevron"></i>
+                                </a>
+                                <ul class="submenu">
+                                    <li><a href="#">Submenu Ansible 1</a></li>
+                                    <li><a href="#">Submenu Ansible 2</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="d-flex align-items-center toggle-submenu">
+                                    <img src="images/terraform-logo.png" alt="Terraform Logo" class="icon-logo">
+                                    <span class="menu-text flex-fill">Terraform</span>
+                                    <i class="fas fa-chevron-right chevron"></i>
+                                </a>
+                                <ul class="submenu">
+                                    <li><a href="#">Submenu Terraform 1</a></li>
+                                    <li><a href="#">Submenu Terraform 2</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Notifications -->
+                    <div class="tab-pane fade pt-3 pb-2" id="notifications" role="tabpanel" aria-labelledby="notifications-tab">
+                        <div class="tab-header text-uppercase p-2">Notifications</div>
+                        <ul>
+                            <li>
+                                <a class="p-2 d-flex align-items-center text-decoration-none" href="#">
+                                    <div class="icon">
+                                        <i class="fas fa-check text-center text-success border border-success"></i>
+                                    </div>
+                                    <div class="notification-content flex-fill overflow-hidden">
+                                        <div class="notification-detail text-nowrap text-truncate">Você tem novas mensagens!</div>
+                                        <div class="notification-time">6 minutos atrás</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="p-2 d-flex align-items-center text-decoration-none" href="#">
+                                    <div class="icon">
+                                        <i class="fas fa-exclamation-triangle text-center text-warning border border-warning"></i>
+                                    </div>
+                                    <div class="notification-content flex-fill overflow-hidden">
+                                        <div class="notification-detail text-nowrap text-truncate">Atualização disponível!</div>
+                                        <div class="notification-time">Ontem</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <!-- Submenu Notifications para Ansible e Terraform -->
+                            <li>
+                                <a href="#" class="d-flex align-items-center toggle-submenu">
+                                    <img src="images/ansible-logo.png" alt="Ansible Logo" class="icon-logo">
+                                    <span class="menu-text flex-fill">Ansible Notifications</span>
+                                    <i class="fas fa-chevron-right chevron"></i>
+                                </a>
+                                <ul class="submenu">
+                                    <li><a href="#">Ansible Notificação 1</a></li>
+                                    <li><a href="#">Ansible Notificação 2</a></li>
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="d-flex align-items-center toggle-submenu">
+                                    <img src="images/terraform-logo.png" alt="Terraform Logo" class="icon-logo">
+                                    <span class="menu-text flex-fill">Terraform Notifications</span>
+                                    <i class="fas fa-chevron-right chevron"></i>
+                                </a>
+                                <ul class="submenu">
+                                    <li><a href="#">Terraform Notificação 1</a></li>
+                                    <li><a href="#">Terraform Notificação 2</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Messages -->
+                    <div class="tab-pane fade pt-3 pb-2" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+                        <div class="tab-header text-uppercase p-2">Messages</div>
+                        <ul>
+                            <li>
+                                <a class="p-2 d-flex align-items-center text-decoration-none" href="#">
+                                    <div class="pic">
+                                        <img src="https://via.placeholder.com/40" alt="User Picture">
+                                    </div>
+                                    <div class="message-content flex-fill overflow-hidden d-flex align-items-center">
+                                        <img src="images/ansible-logo.png" alt="Ansible Icon" class="icon-logo mr-2">
+                                        <div class="message-detail text-nowrap text-truncate">Mensagem relacionada ao Ansible</div>
+                                        <div class="message-time ml-auto">2 horas atrás</div>
+                                    </div>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="p-2 d-flex align-items-center text-decoration-none" href="#">
+                                    <div class="pic">
+                                        <img src="https://via.placeholder.com/40" alt="User Picture">
+                                    </div>
+                                    <div class="message-content flex-fill overflow-hidden d-flex align-items-center">
+                                        <img src="images/terraform-logo.png" alt="Terraform Icon" class="icon-logo mr-2">
+                                        <div class="message-detail text-nowrap text-truncate">Mensagem relacionada ao Terraform</div>
+                                        <div class="message-time ml-auto">3 horas atrás</div>
+                                    </div>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Settings -->
+                    <div class="tab-pane fade pt-3 pb-2" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                        <div class="tab-header text-uppercase p-2">Settings</div>
+                        <ul>
+                            <li>
+                                <a class="p-2 d-flex align-items-center text-decoration-none" href="#">
+                                    <i class="fas fa-user-cog"></i>
+                                    <span class="menu-text">Profile Settings</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="p-2 d-flex align-items-center text-decoration-none" href="#">
+                                    <i class="fas fa-lock"></i>
+                                    <span class="menu-text">Privacy Settings</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a class="p-2 d-flex align-items-center text-decoration-none" href="#">
+                                    <i class="fas fa-bell"></i>
+                                    <span class="menu-text">Notifications</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="tab-footer text-center mt-auto">
+                <button type="button" class="btn btn-primary rounded-0">Logout</button>
+            </div>
+        </aside>
+        <div class="content flex-grow-1 p-4">
+            <h1>Welcome to the Modern Sidebar!</h1>
+            <p>This is a simple layout using Bootstrap 4. Customize it to suit your needs!</p>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+        // Script para alternar submenus
+        document.querySelectorAll('.toggle-submenu').forEach(function(element) {
+            element.addEventListener('click', function(e) {
+                e.preventDefault();
+                const submenu = this.nextElementSibling;
+                submenu.classList.toggle('show');
+                this.querySelector('.chevron').classList.toggle('rotate');
+            });
+        });
+    </script>
+    
+</body>
+</html>

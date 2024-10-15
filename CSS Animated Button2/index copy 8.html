@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>UI Elements - Sidebar</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
+    <style>
+        .nav-side-menu {
+            overflow: auto;
+            font-family: verdana;
+            font-size: 12px;
+            font-weight: 200;
+            background-color: #2e353d;
+            position: fixed;
+            top: 0px;
+            width: 300px;
+            height: 100%;
+            color: #e1ffff;
+        }
+        .nav-side-menu .brand {
+            background-color: #23282e;
+            line-height: 50px;
+            display: block;
+            text-align: center;
+            font-size: 14px;
+        }
+        .nav-side-menu ul, .nav-side-menu li {
+            list-style: none;
+            padding: 0px;
+            margin: 0px;
+            line-height: 35px;
+            cursor: pointer;
+        }
+        .nav-side-menu ul .sub-menu {
+            background-color: #181c20; /* Cor de fundo padrão do submenu */
+            border: none;
+            line-height: 28px;
+            border-bottom: 1px solid #23282e;
+            margin-left: 0px;
+            transition: background-color 0.3s; /* Transição suave de cor */
+        }
+        .nav-side-menu li {
+            border-left: 3px solid #2e353d;
+            border-bottom: 1px solid #23282e;
+        }
+        .nav-side-menu li a {
+            text-decoration: none;
+            color: #e1ffff;
+        }
+        .nav-side-menu li:hover {
+            border-left: 3px solid #d19b3d;
+            background-color: #4f5b69;
+            transition: all 1s ease;
+        }
+        .arrow {
+            margin-left: 10px;
+            display: inline-block;
+            transition: transform 0.3s;
+        }
+        .collapsed .arrow {
+            transform: rotate(0deg);
+        }
+        .expanded .arrow {
+            transform: rotate(90deg);
+        }
+        .notification {
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: transparent;
+            color: white;
+            text-align: center;
+            line-height: 18px;
+            margin-left: 5px;
+            transition: background-color 0.3s;
+            font-size: 12px;
+            border: 1px solid #e1ffff;
+        }
+        .notification:hover {
+            background-color: #d19b3d;
+            border-color: #d19b3d;
+        }
+        .submenu-arrow {
+            margin-left: 10px;
+            font-size: 10px;
+            transition: transform 0.3s;
+            color: #e1ffff;
+        }
+        body {
+            margin: 0px;
+            padding: 0px;
+        }
+        
+        /* Estilo para submenu ativo */
+        .sub-menu.active {
+            background-color: #2c333a; /* Cor ao ativar o submenu */
+        }
+    </style>
+</head>
+<body>
+    <div class="nav-side-menu">
+        <div class="brand">Brand Logo</div>
+        <div class="menu-list">
+            <ul id="menu-content" class="menu-content">
+                <li data-toggle="collapse" data-target="#products" class="collapsed active">
+                    <a href="#"><i class="fa fa-gift fa-lg"></i> UI Elements <span class="arrow"></span>
+                    <span class="notification">9</span></a>
+                </li>
+                <ul class="sub-menu collapse" id="products">
+                    <li data-toggle="collapse" data-target="#general" class="collapsed"><a href="#">General <span class="arrow submenu-arrow">▼</span>
+                    <span class="notification">2</span></a></li>
+                    <ul class="sub-menu collapse" id="general">
+                        <li><a href="#">Submenu 1</a></li>
+                        <li><a href="#">Submenu 2</a></li>
+                    </ul>
+                </ul>
+            </ul>
+        </div>
+    </div>
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            // Toggle class to show/hide submenus and change color
+            $('.collapsed').on('click', function() {
+                $(this).toggleClass('expanded');
+                const targetSubMenu = $(this).data('target');
+                $(targetSubMenu).toggleClass('active'); // Adiciona a classe para mudar a cor de fundo
+            });
+        });
+    </script>
+</body>
+</html>

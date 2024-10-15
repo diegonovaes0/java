@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar com Submenus</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="css/modern sidebar_styles3.css">
+    
+    <style>
+        /* Estilos adicionais para submenus */
+        .submenu {
+            max-height: 0; /* Altura máxima inicial do submenu */
+            overflow: hidden; /* Esconde o conteúdo que excede a altura */
+            transition: max-height 0.3s ease; /* Transição suave ao abrir/fechar */
+            list-style: none; /* Remove marcadores da lista */
+            padding-left: 20px; /* Espaçamento à esquerda */
+        }
+
+        .submenu.show {
+            max-height: 500px; /* Altura máxima quando o submenu está aberto */
+        }
+
+        /* Estilos para os links do submenu */
+        .submenu li a {
+            padding: 5px 0; /* Espaçamento vertical */
+            font-size: 0.9rem; /* Tamanho da fonte */
+            background-color: transparent; /* Fundo transparente */
+            color: #ffffff; /* Cor do texto */
+            transition: background-color 0.3s ease, color 0.3s ease; /* Transições suaves */
+        }
+
+        /* Estilos para links do submenu ao passar o mouse */
+        .submenu li a:hover {
+            background-color: rgba(255, 255, 255, 0.1); /* Cor de fundo ao passar o mouse */
+            color: #ffffff; /* Cor do texto */
+        }
+
+        /* Estilo do logo do sidebar */
+        .icon-logo {
+            width: 20px; /* Largura do logo */
+            height: 20px; /* Altura do logo */
+            margin-right: 10px; /* Margem à direita */
+        }
+
+        /* Estilos da seta de submenu */
+        .chevron {
+            margin-left: auto; /* Alinhamento automático à esquerda */
+            transition: transform 0.3s ease; /* Transição suave */
+        }
+
+        /* Rotação da seta ao abrir submenu */
+        .chevron.rotate {
+            transform: rotate(90deg); /* Rotação de 90 graus */
+        }
+
+        /* Estilos para os links do menu e submenu */
+        .sidebar-menu a.nav-link,
+        .submenu li a {
+            transition: background-color 0.3s ease, color 0.3s ease; /* Transições suaves */
+        }
+
+        /* Estilos de notificação ao passar o mouse */
+        .notification:hover {
+            background-color: #d19b3d; /* Cor de fundo ao passar o mouse */
+            border-color: #d19b3d; /* Cor da borda ao passar o mouse */
+        }
+
+        /* Estilo da seta do submenu */
+        .submenu-arrow {
+            margin-left: 10px; /* Margem à esquerda */
+            font-size: 10px; /* Tamanho da fonte */
+            transition: transform 0.3s; /* Transição suave */
+            color: #e1ffff; /* Cor da seta */
+        }
+
+        /* Estilos para links do menu ao passar o mouse */
+        .sidebar-menu a.nav-link:hover,
+        .submenu li a:hover {
+            background-color: transparent; /* Remove o fundo branco ao passar o mouse */
+            color: #ffffff; /* Cor do texto */
+        }
+
+        /* Estilo da sidebar */
+        .sidebar {
+            background-color: #343a40; /* Cor de fundo da sidebar */
+            transition: all 0.3s ease; /* Transição suave */
+        }
+
+        /* Estilos dos links do menu */
+        .sidebar-menu li a {
+            display: flex; /* Flexbox para alinhamento */
+            align-items: center; /* Alinha verticalmente */
+            padding: 10px 15px; /* Espaçamento */
+            text-decoration: none; /* Remove sublinhado */
+            color: #ffffff; /* Cor do texto padrão */
+            background-color: transparent; /* Garantir fundo transparente */
+        }
+
+        /* Estilos para transições no conteúdo das abas */
+        .tab-pane {
+            transition: opacity 0.3s ease, visibility 0.3s ease; /* Transições suaves */
+        }
+
+        /* Estilos para abas ativas */
+        .tab-pane.fade.show {
+            opacity: 1; /* Opacidade total quando ativo */
+            visibility: visible; /* Visibilidade total */
+        }
+
+        /* Estilos para abas não ativas */
+        .tab-pane.fade {
+            opacity: 0; /* Opacidade zero quando não ativo */
+            visibility: hidden; /* Invisível */
+        }
+
+        /* Estilo opcional para o conteúdo principal */
+        .content {
+            transition: margin-left 0.3s ease; /* Transição suave */
+            background-color: #282c34; /* Cor de fundo mais escura */
+            color: #ffffff; /* Cor do texto */
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <aside class="sidebar h-100 nav-side-menu">
+            <div class="sidebar-section sidebar-header">
+                <div class="sidebar-logo">
+                    <a href="#" class="text-light">Modern Sidebar</a> <!-- Título da sidebar -->
+                </div>
+            </div>
+            <div class="sidebar-section sidebar-profile pt-4 pb-4">
+                <div class="profile-picture">
+                    <div class="picture-wrapper rounded-circle ml-auto mr-auto">
+                        <img src="https://www.magic931.com.au/assets/docs/Jon_Snow.PNG?1543200080" class="img-fluid" alt="Foto de Perfil"> <!-- Foto de perfil -->
+                    </div>
+                    <span class="profile-alert"></span>
+                    <div class="profile-details text-center mt-2">
+                        <div class="name">Jhon Snow</div> <!-- Nome do usuário -->
+                        <small class="role">King in the north</small> <!-- Cargo do usuário -->
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-section sidebar-menu p-0">
+                <ul class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                    <li class="nav-item">
+                        <span class="nav-alert bg-danger"></span> <!-- Indicador de alerta -->
+                        <a class="nav-link rounded-0 active" id="menu-tab" data-toggle="tab" href="#menu" role="tab" aria-controls="menu" aria-selected="true">
+                            <i class="fas fa-bars"></i> <!-- Ícone do menu -->
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0" id="notifications-tab" data-toggle="tab" href="#notifications" role="tab" aria-controls="notifications" aria-selected="false">
+                            <img src="images/ansible-logo.png" alt="Ansible Icon" class="icon-logo"> <!-- Ícone do Ansible -->
+                            <span class="nav-alert bg-danger"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">
+                            <img src="images/terraform-logo.png" alt="Terraform Icon" class="icon-logo"> <!-- Ícone do Terraform -->
+                            <span class="nav-alert bg-success"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0" id="messages-tab" data-toggle="tab" href="#messages" role="tab" aria-controls="messages" aria-selected="false">
+                            <i class="far fa-comment"></i> <!-- Ícone de mensagens -->
+                            <span class="nav-alert bg-success"></span>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="terraform" aria-selected="false">
+                            <i class="fas fa-cogs"></i> <!-- Ícone de configurações -->
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <!-- Menu Baseline -->
+                    <div class="tab-pane fade show active pt-3 pb-2" id="menu" role="tabpanel" aria-labelledby="menu-tab">
+                        <div class="tab-header text-uppercase p-2">Baseline</div> <!-- Título da aba -->
+                        <ul>
+                            <!-- Botões Ansible e Terraform com submenus -->
+                            <li>
+                                <a href="#" class="d-flex align-items-center toggle-submenu">
+                                    <img src="images/ansible-logo.png" alt="Ansible Logo" class="icon-logo"> <!-- Logo do Ansible -->
+                                    <span class="menu-text flex-fill">Ansible</span> <!-- Texto do menu -->
+                                    <i class="fas fa-chevron-right chevron submenu-arrow"></i> <!-- Seta do submenu -->
+                                </a>
+                                <ul class="submenu">
+                                    <li><a href="#">Submenu 1</a></li> <!-- Submenu 1 -->
+                                    <li><a href="#">Submenu 2</a></li> <!-- Submenu 2 -->
+                                    <li><a href="#">Submenu 3</a></li> <!-- Submenu 3 -->
+                                </ul>
+                            </li>
+                            <li>
+                                <a href="#" class="d-flex align-items-center toggle-submenu">
+                                    <img src="images/terraform-logo.png" alt="Terraform Logo" class="icon-logo"> <!-- Logo do Terraform -->
+                                    <span class="menu-text flex-fill">Terraform</span> <!-- Texto do menu -->
+                                    <i class="fas fa-chevron-right chevron submenu-arrow"></i> <!-- Seta do submenu -->
+                                </a>
+                                <ul class="submenu">
+                                    <li><a href="#">Submenu 1</a></li> <!-- Submenu 1 -->
+                                    <li><a href="#">Submenu 2</a></li> <!-- Submenu 2 -->
+                                    <li><a href="#">Submenu 3</a></li> <!-- Submenu 3 -->
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- Menu de Notificações -->
+                    <div class="tab-pane fade" id="notifications" role="tabpanel" aria-labelledby="notifications-tab">
+                        <div class="tab-header text-uppercase p-2">Notificações</div> <!-- Título da aba -->
+                        <ul>
+                            <li class="notification"><a href="#">Notificação 1</a></li> <!-- Notificação 1 -->
+                            <li class="notification"><a href="#">Notificação 2</a></li> <!-- Notificação 2 -->
+                            <li class="notification"><a href="#">Notificação 3</a></li> <!-- Notificação 3 -->
+                        </ul>
+                    </div>
+                    <!-- Menu de Mensagens -->
+                    <div class="tab-pane fade" id="messages" role="tabpanel" aria-labelledby="messages-tab">
+                        <div class="tab-header text-uppercase p-2">Mensagens</div> <!-- Título da aba -->
+                        <ul>
+                            <li><a href="#">Mensagem 1</a></li> <!-- Mensagem 1 -->
+                            <li><a href="#">Mensagem 2</a></li> <!-- Mensagem 2 -->
+                            <li><a href="#">Mensagem 3</a></li> <!-- Mensagem 3 -->
+                        </ul>
+                    </div>
+                    <!-- Menu de Configurações -->
+                    <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                        <div class="tab-header text-uppercase p-2">Configurações</div> <!-- Título da aba -->
+                        <ul>
+                            <li><a href="#">Configuração 1</a></li> <!-- Configuração 1 -->
+                            <li><a href="#">Configuração 2</a></li> <!-- Configuração 2 -->
+                            <li><a href="#">Configuração 3</a></li> <!-- Configuração 3 -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        
+        <!-- Conteúdo Principal -->
+        <div class="content">
+            <h1>Conteúdo Principal</h1>
+            <p>Conteúdo aqui.</p> <!-- Placeholder para conteúdo -->
+        </div>
+    </div>
+
+    <!-- jQuery e Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Script para alternar o submenu
+        $(document).ready(function() {
+            $('.toggle-submenu').on('click', function(e) {
+                e.preventDefault(); // Previne o comportamento padrão do link
+                $(this).next('.submenu').toggleClass('show'); // Alterna a classe 'show' para mostrar ou esconder o submenu
+                $(this).find('.chevron').toggleClass('rotate'); // Alterna a rotação da seta
+            });
+        });
+    </script>
+</body>
+</html>

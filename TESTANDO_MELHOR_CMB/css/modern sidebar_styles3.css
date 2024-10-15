@@ -1,0 +1,128 @@
+/* Seu CSS Personalizado com Transições */
+.nav-side-menu {
+    overflow: auto;
+            font-family: verdana;
+            font-size: 12px;
+            font-weight: 200;
+            background-color: #a9bace;
+            position: fixed;
+            top: 0px;
+            width: 300px;
+            height: 100%;
+            color: #e1ffff;
+}
+
+.nav-side-menu .brand {
+    background-color: #23282e;
+            line-height: 50px;
+            display: block;
+            text-align: center;
+            font-size: 14px;
+}
+
+.nav-side-menu ul, .nav-side-menu li {
+    list-style: none;
+            padding: 0px;
+            margin: 0px;
+            line-height: 35px;
+            cursor: pointer;
+}
+
+.nav-side-menu li {
+    background-color: #181c20;
+            border: none;
+            line-height: 28px;
+            border-bottom: 1px solid #23282e;
+            margin-left: 0px;
+}
+
+.nav-side-menu li a {
+    text-decoration: none;
+    color: #e1ffff;
+}
+
+.nav-side-menu li:hover {
+    border-left: 3px solid #d19b3d;
+            background-color: #1e3855;
+            transition: all 1s ease;
+}
+
+.nav-side-menu li a:hover {
+    background-color: #4f5b69;
+    color: #ffffff;
+}
+
+/* Submenu */
+.sub-menu {
+    max-height: 0; /* Inicia fechado */
+    overflow: hidden; /* Esconde o conteúdo quando max-height é 0 */
+    transition: max-height 0.3s ease; /* Transição suave para a altura */
+}
+
+.sub-menu.show {
+    max-height: 500px; /* Define um valor máximo ao abrir (ajuste conforme necessário) */
+    transition: max-height 0.3s ease; /* Transição suave para a altura */
+}
+
+/* Estilos do ícone de seta */
+.arrow {
+    margin-left: 10px;
+            display: inline-block;
+            transition: transform 0.3s;
+}
+
+.collapsed .arrow {
+    transform: rotate(0deg);
+}
+
+.expanded .arrow {
+    transform: rotate(90deg);
+}
+
+/* Notificação */
+.notification {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: transparent;
+    color: white;
+    text-align: center;
+    line-height: 18px;
+    margin-left: 5px;
+    transition: background-color 0.3s;
+    font-size: 12px;
+    border: 1px solid #e1ffff;
+}
+
+.notification:hover {
+    background-color: #d19b3d;
+            border-color: #d19b3d;
+}
+.notification:hover {
+    background-color: #d19b3d;
+    border-color: #d19b3d;
+}
+.submenu-arrow {
+    margin-left: 10px;
+    font-size: 10px;
+    transition: transform 0.3s;
+    color: #e1ffff;
+}
+/* Responsividade */
+@media (max-width: 768px) {
+    .nav-side-menu {
+        margin-left: 10px;
+        font-size: 10px;
+        transition: transform 0.3s;
+        color: #e1ffff;
+    }
+    .content {
+        margin-left: 0;
+    }
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+}

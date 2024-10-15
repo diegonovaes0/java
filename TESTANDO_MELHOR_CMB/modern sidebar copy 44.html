@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar com Submenus</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <!-- CSS Personalizado -->
+    <link rel="stylesheet" href="css/modern sidebar_styles5.css">
+    <style>
+
+        body {
+            background-color: #0d0d0d;
+        }
+
+        /* Sidebar e submenu estilos */
+        .sidebar {
+            background-color: #343a40;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link {
+            background-color: transparent;
+            color: #ffffff;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        /* Reduzindo o tamanho dos botões Ansible e Terraform */
+        .ansible, .terraform {
+            background-color: #004080;
+            padding: 8px; /* Reduzido de 10px para 8px */
+            border: 2px solid #899cb7;
+            transition: all 1s ease;
+            margin-bottom: 8px; /* Reduzido de 10px para 8px */
+            font-size: 0.9rem; /* Reduzido o tamanho da fonte */
+        }
+
+        .ansible {
+            border: 2px solid #00FF00;
+        }
+
+        /* Submenu reduzido */
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.2s ease;
+            list-style: none;
+            padding-left: 15px; /* Reduzido de 20px para 15px */
+            background-color: #333333;
+            font-size: 0.85rem; /* Reduzido o tamanho da fonte */
+        }
+
+        .submenu.show {
+            max-height: 300px; /* Reduzido de 500px para 300px */
+            padding: 8px 1px; /* Reduzido o padding */
+        }
+
+        .submenu li {
+            width: 100%;
+        }
+
+        .submenu li a {
+            display: block;
+            padding: 8px; /* Reduzido de 10px para 8px */
+            background-color: #262626;
+            color: #ffffff;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .submenu li a:hover {
+            background-color: #06bebe;
+            color: #ffffff;
+        }
+
+        .chevron {
+            margin-left: auto;
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .chevron.rotate {
+            transform: rotate(90deg);
+        }
+
+        /* Estilo para o botão ativo */
+        .active-button {
+            background-color: #006de9;
+            border: 2px solid #ffffff;
+            border-radius: 4px;
+        }
+
+        /* Estilo do conteúdo principal */
+        .content {
+            transition: margin-left 0.3s ease;
+            background-color: #282c34;
+            color: #ffffff;
+            padding: 20px; /* Adicionado padding para melhor visualização */
+        }
+
+        /* Transição para a borda ao abrir */
+        .toggle-submenu.active-button {
+            border: 2px solid #ff6600;
+            transition: all 1s ease;
+        }
+
+        /* Efeito neon com metal para submenu do Ansible */
+        .submenu-ansible li a {
+            position: relative;
+            overflow: hidden;
+            background-color: #262626;
+            color: #00FF00; /* Cor inicial do texto */
+            border: 1px solid #00FF00; /* Borda para efeito metálico */
+            transition: all 0.3s ease;
+        }
+
+        .submenu-ansible li a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, rgba(0,255,0,0.3), rgba(0,255,0,0.7), rgba(0,255,0,0.3));
+            transition: all 0.5s ease;
+            transform: skewX(-45deg);
+        }
+
+        .submenu-ansible li a:hover::before,
+        .submenu-ansible li a.active::before {
+            left: 100%;
+        }
+
+        .submenu-ansible li a:hover,
+        .submenu-ansible li a.active {
+            color: #ffffff; /* Cor do texto ao selecionar */
+            background-color: #1a1a1a; /* Alteração sutil do fundo */
+            box-shadow: 0 0 10px #00FF00, 0 0 20px #00FF00, 0 0 30px #00FF00; /* Efeito neon */
+            border-color: #00FF00; /* Mantém a borda verde */
+        }
+
+        /* Estilo do botão "Clique Aqui" */
+        .animated-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #727272;
+            color: #ffffff;
+            border: 2px solid #ffffff;
+            border-radius: 0; /* Bordas quadradas */
+            text-align: center;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .animated-button:hover {
+            background-color: #06bebe;
+        }
+
+        .animated-button {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 16px 36px;
+            border: 4px solid transparent;
+            font-size: 16px;
+            background-color: inherit;
+            border-radius: 100px;
+            font-weight: 600;
+            color: #ADFF2F;
+            cursor: pointer;
+            overflow: hidden;
+            box-shadow: 0 0 0 2px #ADFF2F;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button svg {
+            position: absolute;
+            width: 24px;
+            fill: #ADFF2F;
+            z-index: 9;
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button .arr-1 {
+            right: 16px;
+        }
+
+        .animated-button .arr-2 {
+            left: -25%;
+        }
+
+        .animated-button .circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            opacity: 0;
+            background-color: #ADFF2F;
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button .text {
+            position: relative;
+            z-index: 1;
+            transform: translateX(-12px);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button:hover {
+            color: #212121;
+            border-radius: 12px;
+            box-shadow: 0 0 0 12px transparent;
+        }
+
+        .animated-button:hover .arr-1 {
+            right: -25%;
+        }
+
+        .animated-button:hover .arr-2 {
+            left: 16px;
+        }
+
+        .animated-button:hover .text {
+            transform: translateX(12px);
+        }
+
+        .animated-button:hover svg {
+            fill: #212121;
+        }
+
+        .animated-button:active {
+            scale: 0.95;
+            box-shadow: 0 0 0 4px #ADFF2F;
+        }
+
+        .animated-button:hover .circle {
+            width: 220px;
+            height: 220px;
+            opacity: 1;
+        }
+
+        .animated-button {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            padding: 16px 36px;
+            border: 4px solid transparent;
+            font-size: 16px;
+            background-color: inherit;
+            border-radius: 100px;
+            font-weight: 600;
+            color: #ADFF2F;
+            cursor: pointer;
+            overflow: hidden;
+            box-shadow: 0 0 0 2px #ADFF2F;
+            transition: all 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button svg {
+            position: absolute;
+            width: 24px;
+            fill: #ADFF2F;
+            z-index: 9;
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button .arr-1 {
+            right: 16px;
+        }
+
+        .animated-button .arr-2 {
+            left: -25%;
+        }
+
+        .animated-button .circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            opacity: 0;
+            background-color: #ADFF2F;
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button .text {
+            position: relative;
+            z-index: 1;
+            transform: translateX(-12px);
+            transition: all 0.8s cubic-bezier(0.23, 1, 0.32, 1);
+        }
+
+        .animated-button:hover {
+            color: #212121;
+            border-radius: 12px;
+            box-shadow: 0 0 0 12px transparent;
+        }
+
+        .animated-button:hover .arr-1 {
+            right: -25%;
+        }
+
+        .animated-button:hover .arr-2 {
+            left: 16px;
+        }
+
+        .animated-button:hover .text {
+            transform: translateX(12px);
+        }
+
+        .animated-button:hover svg {
+            fill: #212121;
+        }
+
+        .animated-button:active {
+            scale: 0.95;
+            box-shadow: 0 0 0 4px #ADFF2F;
+        }
+
+        .animated-button:hover .circle {
+            width: 220px;
+            height: 220px;
+            opacity: 1;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <aside class="sidebar h-100 nav-side-menu">
+            <div class="sidebar-section sidebar-header">
+                <div class="sidebar-logo">
+                    <a href="#" class="text-light">Modern Sidebar</a>
+                </div>
+            </div>
+            <div class="sidebar-section sidebar-profile pt-4 pb-4">
+                <div class="profile-picture">
+                    <div class="picture-wrapper rounded-circle ml-auto mr-auto">
+                        <img src="https://www.magic931.com.au/assets/docs/Jon_Snow.PNG?1543200080" class="img-fluid" alt="Foto de Perfil">
+                    </div>
+                    <span class="profile-alert"></span>
+                    <div class="profile-details text-center mt-2">
+                        <div class="name">Jhon Snow</div>
+                        <small class="role">King in the north</small>
+                    </div>
+                </div>
+            </div>
+            <div class="sidebar-section sidebar-menu p-0">
+                <ul class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                    <!-- Menu 1 -->
+                    <li class="nav-item">
+                        <span class="nav-alert bg-danger"></span>
+                        <a class="nav-link rounded-0" id="menu1-tab" data-toggle="tab" href="#menu1" role="tab" aria-controls="menu1" aria-selected="false">
+                            <i class="fas fa-home"></i> <!-- Ícone atualizado -->
+                        </a>
+                    </li>
+                    <!-- Menu 2 -->
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0" id="menu2-tab" data-toggle="tab" href="#menu2" role="tab" aria-controls="menu2" aria-selected="false">
+                            <img src="images/ansible-logo.png" alt="Ansible Icon" class="icon-logo">
+                            <span class="nav-alert bg-danger"></span>
+                        </a>
+                    </li>
+                    <!-- Menu 3 -->
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0" id="menu3-tab" data-toggle="tab" href="#menu3" role="tab" aria-controls="menu3" aria-selected="false">
+                            <img src="images/terraform-logo.png" alt="Terraform Icon" class="icon-logo">
+                            <span class="nav-alert bg-success"></span>
+                        </a>
+                    </li>
+                    <!-- Menu 4 -->
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0" id="menu4-tab" data-toggle="tab" href="#menu4" role="tab" aria-controls="menu4" aria-selected="false">
+                            <i class="far fa-comment"></i>
+                            <span class="nav-alert bg-success"></span>
+                        </a>
+                    </li>
+                    <!-- Menu 5 -->
+                    <li class="nav-item">
+                        <a class="nav-link rounded-0" id="menu5-tab" data-toggle="tab" href="#menu5" role="tab" aria-controls="menu5" aria-selected="false">
+                            <i class="fas fa-cogs"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <!-- Conteúdo do Menu 1 -->
+                    <div class="tab-pane fade" id="menu1" role="tabpanel" aria-labelledby="menu1-tab">
+                        <div class="tab-header text-light p-3">Menu 1</div>
+                        <div class="tab-body">
+                            <p>Conteúdo do Menu 1</p>
+                        </div>
+                    </div>
+                    <!-- Conteúdo do Menu 2 -->
+                    <div class="tab-pane fade" id="menu2" role="tabpanel" aria-labelledby="menu2-tab">
+                        <div class="tab-header text-light p-3">Ansible</div>
+                        <div class="tab-body">
+                            <button class="ansible toggle-submenu active-button">Ansible <i class="fas fa-chevron-right chevron"></i></button>
+                            <ul class="submenu submenu-ansible">
+
+                                <button class="animated-button">
+                                    <span class="text">Clique Aqui</span>
+                                    <svg class="arr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M7 12h10M7 12l4-4M7 12l4 4" />
+                                    </svg>
+                                    <svg class="arr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M17 12H7m10 0l-4 4m4-4l-4-4" />
+                                    </svg>
+                                    <div class="circle"></div>
+                                </button>
+
+
+                                <li><a href="#">Configuração 1</a></li>
+                                <li><a href="#">Configuração 2</a></li>
+                                <li><a href="#">Configuração 3</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Conteúdo do Menu 3 -->
+                    <div class="tab-pane fade" id="menu3" role="tabpanel" aria-labelledby="menu3-tab">
+                        <div class="tab-header text-light p-3">Terraform</div>
+                        <div class="tab-body">
+                            <button class="terraform toggle-submenu">Terraform <i class="fas fa-chevron-right chevron"></i></button>
+                            <ul class="submenu submenu-terraform">
+                                <button class="animated-button">
+                                    <span class="text">Clique Aqui</span>
+                                    <svg class="arr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M7 12h10M7 12l4-4M7 12l4 4" />
+                                    </svg>
+                                    <svg class="arr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M17 12H7m10 0l-4 4m4-4l-4-4" />
+                                    </svg>
+                                    <div class="circle"></div>
+                                </button>
+
+                                <button class="animated-button">
+                                    <li><a href="#">Configuração 1</a></li>
+                                    <li><a href="#">Configuração 2</a></li>
+                                    <li><a href="#">Clique Aqui</a></li>
+                                    <li><button class="animated-button">Clique Aqui</button></li> <!-- Botão "Clique Aqui" -->
+                                    <span class="text">Clique Aqui</span>
+                                    <svg class="arr-1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M7 12h10M7 12l4-4M7 12l4 4" />
+                                    </svg>
+                                    <svg class="arr-2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <path d="M17 12H7m10 0l-4 4m4-4l-4-4" />
+                                    </svg>
+                                    <div class="circle"></div>
+                                </button>
+                               
+                            </ul>
+                        </div>
+                    </div>
+                    <!-- Conteúdo do Menu 4 -->
+                    <div class="tab-pane fade" id="menu4" role="tabpanel" aria-labelledby="menu4-tab">
+                        <div class="tab-header text-light p-3">Menu 4</div>
+                        <div class="tab-body">
+                            <p>Conteúdo do Menu 4</p>
+                        </div>
+                    </div>
+                    <!-- Conteúdo do Menu 5 -->
+                    <div class="tab-pane fade" id="menu5" role="tabpanel" aria-labelledby="menu5-tab">
+                        <div class="tab-header text-light p-3">Menu 5</div>
+                        <div class="tab-body">
+                            <p>Conteúdo do Menu 5</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <main class="content">
+            <h1>Conteúdo Principal</h1>
+            <p>Aqui está o conteúdo principal da página.</p>
+        </main>
+    </div>
+
+    <!-- Scripts JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.toggle-submenu').click(function() {
+                $(this).next('.submenu').toggleClass('show');
+                $(this).find('.chevron').toggleClass('rotate');
+            });
+        });
+    </script>
+</body>
+</html>

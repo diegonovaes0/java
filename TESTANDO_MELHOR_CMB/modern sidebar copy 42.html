@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar com Submenus</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <!-- Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+       <!-- CSS Personalizado -->
+       <link rel="stylesheet" href="css/modern_sidebar_styles6.css">
+    <style>
+        /* Aplicação da Cor de Fundo Principal */
+        body {
+            background-color: #0d0d0d; /* Cor #0d0d0d */
+        }
+
+        /* Sidebar e submenu estilos */
+        .sidebar {
+            background-color: #333333; /* Cor #333333 */
+            transition: all 0.3s ease;
+            width: 250px; /* Largura fixa para a sidebar */
+            height: 100vh; /* Altura completa da viewport */
+            position: fixed; /* Fixar a sidebar */
+            left: 0;
+            top: 0;
+            overflow-y: auto; /* Rolagem vertical se necessário */
+        }
+
+        /* Estilos dos Links de Navegação */
+        .nav-link {
+            background-color: transparent;
+            color: #ffffff;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            padding: 12px 20px; /* Padding ajustado para melhor espaçamento */
+            font-size: 1rem; /* Tamanho da fonte */
+        }
+
+        /* Botões e Subbotões */
+        .btn-ansible, .btn-terraform {
+            background-color: #15181c; /* Cor #15181c */
+            padding: 8px 16px; /* Padding reduzido */
+            border: 2px solid #00FF00; /* Borda verde para Ansible */
+            transition: all 0.3s ease;
+            margin-bottom: 8px; /* Espaçamento inferior */
+            font-size: 0.9rem; /* Tamanho da fonte */
+            border-radius: 4px; /* Bordas arredondadas */
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+
+        /* Subbotões */
+        .sub-btn-ansible, .sub-btn-terraform {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease, padding 0.2s ease;
+            list-style: none;
+            padding-left: 15px; /* Padding interno */
+            background-color: #262626; /* Cor de fundo do submenu */
+            font-size: 0.85rem; /* Tamanho da fonte */
+        }
+
+        .sub-btn-ansible.show, .sub-btn-terraform.show {
+            max-height: 300px; /* Altura máxima ao expandir */
+            padding: 8px 1px; /* Padding reduzido */
+        }
+
+        /* Estilos dos Links dos Submenus */
+        .sub-btn-ansible li a, .sub-btn-terraform li a {
+            display: block;
+            padding: 8px 16px; /* Padding interno */
+            background-color: #333333; /* Cor de fundo */
+            color: #ffffff; /* Cor inicial do texto */
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            border-radius: 4px; /* Bordas arredondadas */
+        }
+
+        /* Efeitos de Hover */
+        .sub-btn-ansible li a:hover, .sub-btn-terraform li a:hover {
+            background-color: #1a1a1a; /* Fundo alterado */
+            color: #00FF00; /* Cor do texto ao passar o mouse */
+        }
+
+        /* Estilo do conteúdo principal */
+        .content {
+            margin-left: 250px; /* Espaço para a sidebar */
+            padding: 20px; /* Padding para o conteúdo */
+            background-color: #282c34;
+            color: #ffffff;
+            min-height: 100vh; /* Altura mínima para preencher a viewport */
+        }
+
+        /* Estilo para os ícones de Chevron */
+        .chevron {
+            margin-left: auto;
+            margin-right: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .chevron.rotate {
+            transform: rotate(90deg);
+        }
+    </style>
+</head>
+<body>
+
+    <aside class="sidebar h-100 nav-side-menu">
+        <div class="sidebar-header text-center py-4">
+            <a href="#" class="text-light font-weight-bold" style="font-size: 1.5rem;">Modern Sidebar</a>
+        </div>
+        <div class="sidebar-profile pt-4 pb-4 text-center">
+            <div class="picture-wrapper rounded-circle mx-auto" style="width: 80px; height: 80px;">
+                <img src="https://www.magic931.com.au/assets/docs/Jon_Snow.PNG?1543200080" class="img-fluid rounded-circle" alt="Foto de Perfil">
+            </div>
+            <div class="name font-weight-bold">Jhon Snow</div>
+            <small class="role">King in the north</small>
+        </div>
+        <div class="sidebar-menu p-0">
+            <ul class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                <li class="nav-item">
+                    <a class="nav-link rounded-0" id="menu1-tab" data-toggle="tab" href="#menu1" role="tab" aria-controls="menu1" aria-selected="false">
+                        <i class="fas fa-home"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link rounded-0 btn-ansible toggle-submenu" href="#">
+                        <img src="images/ansible-logo.png" alt="Ansible Icon" class="icon-logo" style="width: 20px; height: 20px;">
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link rounded-0 btn-terraform toggle-submenu" href="#">
+                        <img src="images/terraform-logo.png" alt="Terraform Icon" class="icon-logo" style="width: 20px; height: 20px;">
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link rounded-0" id="menu4-tab" data-toggle="tab" href="#menu4" role="tab" aria-controls="menu4" aria-selected="false">
+                        <i class="far fa-comment"></i>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link rounded-0" id="menu5-tab" data-toggle="tab" href="#menu5" role="tab" aria-controls="menu5" aria-selected="false">
+                        <i class="fas fa-cogs"></i>
+                    </a>
+                </li>
+            </ul>
+            <div class="tab-content" id="myTabContent">
+                <div class="tab-pane fade" id="menu1" role="tabpanel" aria-labelledby="menu1-tab">
+                    <div class="tab-header text-uppercase p-2">Home</div>
+                    <p>Conteúdo do Menu Home.</p>
+                </div>
+                <div class="tab-pane fade" id="menu2" role="tabpanel" aria-labelledby="menu2-tab">
+                    <div class="tab-header text-uppercase p-2">Ansible</div>
+                    <ul class="sub-btn-ansible">
+                        <li><a href="#playbook1">Submenu Ansible 1</a></li>
+                        <li><a href="#playbook2">Submenu Ansible 2</a></li>
+                    </ul>
+                </div>
+                <div class="tab-pane fade" id="menu3" role="tabpanel" aria-labelledby="menu3-tab">
+                    <div class="tab-header text-uppercase p-2">Terraform</div>
+                    <ul class="sub-btn-terraform">
+                        <li><a href="#terraform1">Submenu Terraform 1</a></li>
+                        <li><a href="#terraform2">Submenu Terraform 2</a></li>
+                    </ul>
+                </div>
+                <div class="tab-pane fade" id="menu4" role="tabpanel" aria-labelledby="menu4-tab">
+                    <div class="tab-header text-uppercase p-2">Comentários</div>
+                    <p>Conteúdo do Menu Comentários.</p>
+                </div>
+                <div class="tab-pane fade" id="menu5" role="tabpanel" aria-labelledby="menu5-tab">
+                    <div class="tab-header text-uppercase p-2">Configurações</div>
+                    <p>Conteúdo do Menu Configurações.</p>
+                </div>
+            </div>
+        </div>
+    </aside>
+
+    <div class="content">
+        <h1>Bem-vindo à sua página com Sidebar</h1>
+        <p>Conteúdo principal vai aqui...</p>
+    </div>
+
+    <!-- jQuery e Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <script>
+        // Script para alternar os submenus
+        $(document).ready(function() {
+            $('.toggle-submenu').on('click', function(e) {
+                e.preventDefault();
+                $(this).siblings('.sub-btn-ansible, .sub-btn-terraform').toggleClass('show');
+                $(this).find('.chevron').toggleClass('rotate');
+            });
+        });
+    </script>
+</body>
+</html>

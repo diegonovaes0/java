@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sidebar com Botões Modernos</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    
+    <!-- Font Awesome para Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    
+    <!-- CSS Personalizado -->
+    <style>
+        /* Reset de Margens e Padding */
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #212121;
+            font-family: Arial, sans-serif;
+            margin: 0;
+        }
+
+        /* Estrutura Principal */
+        .wrapper {
+            display: flex;
+            height: 100vh;
+        }
+
+        /* Estilos da Sidebar */
+        .sidebar {
+            width: 250px;
+            background-color: #343a40;
+            color: #fff;
+            transition: width 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-header,
+        .sidebar-profile,
+        .sidebar-menu,
+        .tab-footer {
+            padding: 15px;
+        }
+
+        .sidebar-logo a {
+            color: #fff;
+            font-size: 1.5rem;
+            text-decoration: none;
+        }
+
+        .profile-picture img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+        }
+
+        .profile-details .name {
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .profile-details .role {
+            font-size: 0.9rem;
+            color: #bbb;
+        }
+
+        .sidebar-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-menu li {
+            position: relative;
+        }
+
+        .sidebar-menu a.nav-link {
+            display: flex;
+            align-items: center;
+            padding: 10px 15px;
+            color: #fff;
+            text-decoration: none;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .sidebar-menu a.nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .icon-logo {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        .chevron {
+            margin-left: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .chevron.rotate {
+            transform: rotate(90deg);
+        }
+
+        /* Estilos para Submenus */
+        .submenu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+            list-style: none;
+            padding-left: 20px;
+        }
+
+        .submenu.show {
+            max-height: 500px; /* Ajuste conforme necessário */
+        }
+
+        .submenu li {
+            margin-bottom: 10px;
+        }
+
+        .submenu li a {
+            padding: 8px 0;
+            font-size: 0.9rem;
+            color: #fff;
+            text-decoration: none;
+            display: block;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .submenu li a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        /* Estilos para Botões Modernos */
+        .animated-button {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 8px; /* Espaçamento entre os itens */
+            padding: 12px 20px;
+            border: 2px solid #ADFF2F;
+            font-size: 16px;
+            background-color: inherit;
+            border-radius: 8px; /* Bordas levemente arredondadas para aparência quadrada */
+            font-weight: 600;
+            color: #ADFF2F;
+            cursor: pointer;
+            overflow: hidden;
+            box-shadow: 0 0 0 2px #ADFF2F;
+            transition: all 0.3s ease;
+            width: 100%;
+        }
+
+        .animated-button:hover {
+            background-color: #ADFF2F;
+            color: #212121;
+            border-color: #ADFF2F;
+        }
+
+        .animated-button svg.arr-2 {
+            width: 20px;
+            height: 20px;
+            fill: #ADFF2F;
+            transition: all 0.3s ease;
+        }
+
+        .animated-button svg.arr-1 {
+            width: 20px;
+            height: 20px;
+            fill: #ADFF2F;
+            transition: transform 0.3s ease;
+        }
+
+        .animated-button .circle {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 300%;
+            height: 300%;
+            background-color: rgba(173, 255, 47, 0.2);
+            border-radius: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            transition: transform 0.5s ease;
+            z-index: 0;
+        }
+
+        .animated-button:hover .circle {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        .animated-button .text {
+            position: relative;
+            z-index: 1;
+            flex-grow: 1;
+            text-align: left;
+            font-size: 1rem;
+        }
+
+        /* Rotação da seta no botão animado */
+        .animated-button.rotate-arrow svg.arr-1 {
+            transform: rotate(180deg);
+        }
+
+        /* Estilos para Conteúdo Principal */
+        .content {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: #f8f9fa;
+            overflow-y: auto;
+        }
+
+        .tab-footer .btn {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="wrapper">
+        <aside class="sidebar">
+            <!-- Header da Sidebar -->
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <a href="#">Modern Sidebar</a>
+                </div>
+            </div>
+            <!-- Perfil -->
+            <div class="sidebar-profile text-center">
+                <div class="profile-picture">
+                    <img src="https://www.magic931.com.au/assets/docs/Jon_Snow.PNG?1543200080" alt="Foto de Perfil">
+                </div>
+                <div class="profile-details mt-2">
+                    <div class="name">Jhon Snow</div>
+                    <small class="role">King in the North</small>
+                </div>
+            </div>
+            <!-- Menu da Sidebar -->
+            <div class="sidebar-menu flex-grow-1">
+                <ul class="nav nav-tabs nav-fill" id="nav-tab" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" id="menu-tab" data-toggle="tab" href="#menu" role="tab" aria-controls="menu" aria-selected="true">
+                            <i class="fas fa-bars"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Ícone do Ansible -->
+                        <a class="nav-link" id="ansible-tab" data-toggle="tab" href="#ansible" role="tab" aria-controls="ansible" aria-selected="false">
+                            <img src="images/ansible-logo.png" alt="Ansible Icon" class="icon-logo">
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Ícone do Terraform -->
+                        <a class="nav-link" id="terraform-tab" data-toggle="tab" href="#terraform" role="tab" aria-controls="terraform" aria-selected="false">
+                            <img src="images/terraform-logo.png" alt="Terraform Icon" class="icon-logo">
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Ícone de Comentários -->
+                        <a class="nav-link" id="comments-tab" data-toggle="tab" href="#comments" role="tab" aria-controls="comments" aria-selected="false">
+                            <i class="far fa-comment"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <!-- Ícone de Configurações -->
+                        <a class="nav-link" id="settings-tab" data-toggle="tab" href="#settings" role="tab" aria-controls="settings" aria-selected="false">
+                            <i class="fas fa-cogs"></i>
+                        </a>
+                    </li>
+                </ul>
+                <div class="tab-content" id="myTabContent">
+                    <!-- Menu Baseline -->
+                    <div class="tab-pane fade show active" id="menu" role="tabpanel" aria-labelledby="menu-tab">
+                        <div class="tab-header text-uppercase p-2">Baseline</div>
+                        <ul>
+                            <!-- Outros Itens de Submenu (Opcional) -->
+                            <li>
+                                <a href="#" class="d-flex align-items-center toggle-submenu">
+                                    <img src="images/another-logo.png" alt="Another Logo" class="icon-logo">
+                                    <span class="menu-text flex-fill">Another Item</span>
+                                    <i class="fas fa-chevron-right chevron"></i>
+                                </a>
+                                <ul class="submenu">
+                                    <li><a href="#">Submenu Another 1</a></li>
+                                    <li><a href="#">Submenu Another 2</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Ansible -->
+                    <div class="tab-pane fade" id="ansible" role="tabpanel" aria-labelledby="ansible-tab">
+                        <div class="tab-header text-uppercase p-2">Ansible</div>
+                        <ul>
+                            <!-- Botões Modernos no Submenu do Ansible -->
+                            <li>
+                                <button class="animated-button toggle-submenu">
+                                    <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z">
+                                        </path>
+                                    </svg>
+                                    <span class="text">Modern Button 1</span>
+                                    <span class="circle"></span>
+                                    <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </li>
+                            <li>
+                                <button class="animated-button toggle-submenu">
+                                    <svg viewBox="0 0 24 24" class="arr-2" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z">
+                                        </path>
+                                    </svg>
+                                    <span class="text">Modern Button 2</span>
+                                    <span class="circle"></span>
+                                    <svg viewBox="0 0 24 24" class="arr-1" xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M16.1716 10.9999L10.8076 5.63589L12.2218 4.22168L20 11.9999L12.2218 19.778L10.8076 18.3638L16.1716 12.9999H4V10.9999H16.1716Z">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Terraform -->
+                    <div class="tab-pane fade" id="terraform" role="tabpanel" aria-labelledby="terraform-tab">
+                        <div class="tab-header text-uppercase p-2">Terraform</div>
+                        <ul>
+                            <!-- Submenu Terraform -->
+                            <li>
+                                <a href="#" class="d-flex align-items-center toggle-submenu">
+                                    <img src="images/terraform-logo.png" alt="Terraform Logo" class="icon-logo">
+                                    <span class="menu-text flex-fill">Terraform</span>
+                                    <i class="fas fa-chevron-right chevron"></i>
+                                </a>
+                                <ul class="submenu">
+                                    <li><a href="#">Submenu Terraform 1</a></li>
+                                    <li><a href="#">Submenu Terraform 2</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Comentários -->
+                    <div class="tab-pane fade" id="comments" role="tabpanel" aria-labelledby="comments-tab">
+                        <div class="tab-header text-uppercase p-2">Comments</div>
+                        <ul>
+                            <!-- Conteúdo dos Comentários -->
+                            <li>
+                                <a href="#" class="d-flex align-items-center">
+                                    <i class="far fa-comment"></i>
+                                    <span class="menu-text flex-fill">No comments available.</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- Configurações -->
+                    <div class="tab-pane fade" id="settings" role="tabpanel" aria-labelledby="settings-tab">
+                        <div class="tab-header text-uppercase p-2">Settings</div>
+                        <ul>
+                            <li>
+                                <a href="#" class="d-flex align-items-center">
+                                    <i class="fas fa-user-cog"></i>
+                                    <span class="menu-text flex-fill">Profile Settings</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="d-flex align-items-center">
+                                    <i class="fas fa-lock"></i>
+                                    <span class="menu-text flex-fill">Privacy Settings</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="#" class="d-flex align-items-center">
+                                    <i class="fas fa-bell"></i>
+                                    <span class="menu-text flex-fill">Notifications</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer da Sidebar -->
+            <div class="tab-footer">
+                <button type="button" class="btn btn-primary">Logout</button>
+            </div>
+        </aside>
+        
+        <!-- Conteúdo Principal -->
+        <div class="content">
+            <h1>Welcome to the Modern Sidebar!</h1>
+            <p>This is a simple layout using Bootstrap 4. Customize it to suit your needs!</p>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
+    <script>
+        // Script para alternar submenus
+        document.addEventListener('DOMContentLoaded', function() {
+            // Seleciona todos os elementos com a classe 'toggle-submenu'
+            document.querySelectorAll('.toggle-submenu').forEach(function(element) {
+                element.addEventListener('click', function(e) {
+                    e.preventDefault(); // Previne o comportamento padrão do link
+                    const submenu = this.nextElementSibling; // Seleciona o submenu próximo
+                    submenu.classList.toggle('show'); // Alterna a classe 'show' para abrir/fechar
+                    this.querySelector('.chevron').classList.toggle('rotate'); // Alterna a rotação da seta
+
+                    // Se for um botão animado, rotaciona a seta
+                    if (this.classList.contains('animated-button')) {
+                        this.classList.toggle('rotate-arrow');
+                    }
+                });
+            });
+        });
+    </script>
+    
+</body>
+</html>
